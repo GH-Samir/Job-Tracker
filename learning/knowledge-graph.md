@@ -92,7 +92,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App`. Task 1.4: correctly predicted that deleting assets/CSS before rewriting App.jsx would error because the imports would point at missing files, which set the work order. Traced leftover styling to `import './index.css'` in main.jsx after a nudge (first guess also included index.html, which contains no styles).
+- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App`. Task 1.4: correctly predicted that deleting assets/CSS before rewriting App.jsx would error because the imports would point at missing files, which set the work order. Traced leftover styling to `import './index.css'` in main.jsx after a nudge (first guess also included index.html, which contains no styles). Task 2.2: wrote `import ApplicationCard from "./ApplicationCard"` unaided (extension omitted — works via Vite resolution; noted that main.jsx uses the explicit `.jsx` form and consistency is the point).
 
 ## reading-errors
 - status: practicing
@@ -127,14 +127,14 @@
 - depends-on: why-react, jsx
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Toured the three-file chain (index.html's empty #root div → main.jsx mounts App into it → App.jsx returns the markup) and correctly answered where the visible page content comes from ("from the main.jsx script"). Task 1.4: authored the body of App.jsx from a TODO skeleton — correct h1 and p, first code written in this project. Has only written a static component; props and state still ahead.
+- evidence: Toured the three-file chain (index.html's empty #root div → main.jsx mounts App into it → App.jsx returns the markup) and correctly answered where the visible page content comes from ("from the main.jsx script"). Task 1.4: authored the body of App.jsx from a TODO skeleton — correct h1 and p, first code written in this project. Task 2.2: built a second component (ApplicationCard) and asked unprompted whether a component is like a class definition — good instinct on "define once, reuse many"; corrected toward a component being literally a function (no instances, no inheritance, closer to a pure function), with class components named as legacy they'll meet online. Also shown: component names must be capitalised in JSX or they're treated as HTML tags. State still ahead.
 
 ## jsx
 - status: practicing
 - depends-on: why-react
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Shown JSX as HTML-looking syntax inside JavaScript that browsers can't read and Vite translates — hence the .jsx extension, plus `<>...</>` fragments and `{/* */}` comments. Task 1.4: wrote correct JSX inside the fragment unaided. Task 2.1: used `{}` interpolation correctly across five elements to pull values out of an object — the data-to-markup bridge. Hasn't yet put an expression (rather than a plain lookup) inside braces.
+- evidence: Shown JSX as HTML-looking syntax inside JavaScript that browsers can't read and Vite translates — hence the .jsx extension, plus `<>...</>` fragments and `{/* */}` comments. Task 1.4: wrote correct JSX inside the fragment unaided. Task 2.1: used `{}` interpolation correctly across five elements to pull values out of an object — the data-to-markup bridge. Task 2.2: got stuck on `{/* ... */}` — wrote JSX *inside* an unterminated comment brace, leaving the file unparseable. Needed the fix pointed out: the curly braces belong to the comment and must wrap it entirely. Hasn't yet put an expression (rather than a plain lookup) inside braces.
 
 ## js-objects
 - status: practicing
@@ -165,11 +165,11 @@
 - evidence: Flagged in task 2.1 and deliberately parked: their fake data uses '12/07/2026', which is ambiguous across locales and doesn't sort. Comes due in section 5 when the database needs to order by date. → [[sql]] [[tables-schema]]
 
 ## props
-- status: seed
+- status: practicing
 - depends-on: react-component
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.2: described the mechanism before seeing the syntax — "you would run the application card component function on an application, and it would generate the markup for it". Wrote `<ApplicationCard application={applications[0]} />` and `props.application.role` correctly across two files. Correctly predicted a second card would cost 1 line vs ~8 for copy-paste. Asked why the card not knowing its index is good, answered "lets me sort it however i like" — a real consequence, but the general principle (the card is decoupled from its data source) was supplied rather than retrieved. Shown but not yet checked: props are read-only and flow parent → child. Destructuring (`{ application }`) deliberately not taught yet — the props-is-one-object model comes first.
 
 ## list-rendering
 - status: seed

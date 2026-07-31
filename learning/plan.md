@@ -26,7 +26,7 @@ Tasks:
 
 Tasks:
 - [x] 2.1 Represent a job application as a JavaScript object, and several as an array — hardcoded in App.jsx, first one shown on screen — done 2026-07-31; three fake applications, semantic-HTML correction (headings ≠ sizes), ISO date format parked for section 5
-- [ ] 2.2 Move the card into its own ApplicationCard component and feed it data with props
+- [x] 2.2 Move the card into its own ApplicationCard component and feed it data with props — done 2026-07-31; three cards on screen, one line each
 - [ ] 2.3 Render the whole array as a list with .map(), including keys
 - [ ] 2.4 Style the page and the cards with CSS
 - [ ] 2.5 Add the "new application" form markup — visible, not yet working

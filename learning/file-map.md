@@ -28,6 +28,7 @@ Project root: `/home/samir/job-tracker` — everything below is relative to it.
 ## /client/src — the React source you actually write
 - main.jsx — known (2026-07-31) — the entry point: grabs `#root` from index.html and mounts `<App />` into it. Middle link of the chain. Also imports index.css, which is what makes those styles global. → [[imports-exports]] [[react-component]]
 - App.jsx — known (2026-07-31) — the root component, and the first file you wrote. Now holds the hardcoded `applications` array (three fake job applications) and renders the first one. The array moves out to real data in section 4; the rendering becomes a list in task 2.3. → [[react-component]] [[jsx]] [[js-objects]] [[js-arrays]] [[semantic-html]]
-- index.css — known (2026-07-31) — global styles for the whole app, reaching the page via main.jsx's import. Emptied in task 1.4; you fill it in section 2. → [[css-styling]]
+- ApplicationCard.jsx — known (2026-07-31) — draws one job application, given one via props. Knows nothing about arrays, indexes, or where the data came from — which is why it survives unchanged when the data moves to a server (section 4) and then a database (section 5). → [[props]] [[react-component]]
+- index.css — known (2026-07-31) — global styles for the whole app, reaching the page via main.jsx's import. Emptied in task 1.4; you fill it in task 2.4. → [[css-styling]]
 
 Deleted in task 1.4 (recoverable from git history): src/App.css, src/assets/, public/icons.svg — all Vite demo content nothing referenced once App.jsx was rewritten.
