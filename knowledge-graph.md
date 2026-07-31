@@ -46,11 +46,18 @@
 - evidence: Identified the database as part of it; corrected toward three running, connected services (frontend, backend, database) needing to be wired together.
 
 ## git-commit
-- status: seed
+- status: practicing
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Ran git init/add/commit unaided. Correctly named the "untracked files" heading before seeing it. Predicted the staged heading as "tracked files" (actual: "Changes to be committed") — corrected toward staging being a queue of changes, not a file status. Correctly predicted `git log --oneline` would print one line beginning with the commit hash.
+
+## gitignore
+- status: introduced
+- depends-on: git-commit
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Guessed `git init` creates a .gitignore; told what it actually is — a file you write listing paths git should never track. None created yet; due when node_modules/ appears in task 1.2.
 
 ## local-environment
 - status: seed

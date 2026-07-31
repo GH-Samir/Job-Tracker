@@ -10,3 +10,4 @@ Project root: `/home/samir/learning` — everything below is relative to it.
 - plan.md — known (2026-07-31) — the build plan and locked decisions
 - knowledge-graph.md — known (2026-07-31) — the living map of what you actually know
 - file-map.md — known (2026-07-31) — this file: why every file in the repo exists
+- .git/ — known (2026-07-31) — the repository itself: every commit ever made lives here. Hidden (leading dot). Never edit by hand; you change it only through git commands. → [[git-commit]]
