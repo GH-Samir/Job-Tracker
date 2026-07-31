@@ -50,7 +50,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Ran git init/add/commit unaided. Correctly named the "untracked files" heading before seeing it. Predicted the staged heading as "tracked files" (actual: "Changes to be committed") — corrected toward staging being a queue of changes, not a file status. Correctly predicted `git log --oneline` would print one line beginning with the commit hash.
+- evidence: Ran git init/add/commit unaided. Correctly named the "untracked files" heading before seeing it. Predicted the staged heading as "tracked files" (actual: "Changes to be committed") — corrected toward staging being a queue of changes, not a file status. Correctly predicted `git log --oneline` would print one line beginning with the commit hash. Task 1.3: committed the scaffold unprompted between sessions (311ba79 "install react and its dependancies and vite"); ran `git diff` on a deliberate breakage and read it correctly ("changed the id"); used `git restore` to undo it. Shown the -/+ diff convention.
 
 ## gitignore
 - status: practicing
@@ -67,11 +67,32 @@
 - evidence: Scaffolded into the wrong folder (terminal was in learning/); ran `pwd` and correctly read off the cause — "client is now under job tracker, not learning" after fixing with `mv client ..`. Correctly predicted moving the folder would NOT break it, reasoning "the packages aren't directory specific". Vocabulary met: pwd, cd, mv, `..`, Ctrl+C.
 
 ## vite
+- status: practicing
+- depends-on: npm-packages
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Told what Vite is (translates React into what browsers understand + dev server). Ran `npm create vite@latest client -- --template react` themselves. Predicted the scaffold would yield an immediately-working app — correct, but for a reason they hadn't accounted for (Vite 8 auto-installs and starts; older versions require a separate `npm install`). Task 1.3: ran `npm run dev` and confirmed the app in the browser at localhost:5173. Toured vite.config.js (plugins: [react()]) and the public/ vs src/assets/ split — told, not yet checked back.
+
+## npm-scripts
 - status: introduced
 - depends-on: npm-packages
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Told what Vite is (translates React into what browsers understand + dev server). Ran `npm create vite@latest client -- --template react` themselves. Predicted the scaffold would yield an immediately-working app — correct, but for a reason they hadn't accounted for (Vite 8 auto-installs and starts; older versions require a separate `npm install`). Has not yet opened the app or seen its files — tour due in task 1.3.
+- evidence: Asked how npm resolves the word `dev`; first answered "it looks in main.jsx and follows down the chain" — conflated the browser runtime chain with npm's command lookup. Redirected to package.json's `scripts` section and correctly read off `vite`. Shown the dev/build/preview/lint convention. Worth re-checking.
+
+## imports-exports
+- status: introduced
+- depends-on: none
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App` as the other half of `import App`. Told, not yet checked or written.
+
+## reading-errors
+- status: practicing
+- depends-on: local-environment
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Predicted correctly and with the right mechanism that removing `id="root"` would break the page — "wouldn't load since it wouldn't know where to find the html with id root". Made the edit, saw the blank page, opened DevTools console when prompted and reported the real error ("Target container is not a DOM element. at main.jsx:6:1"). Shown: getElementById returns null when it finds nothing, and the error's file/line is where code *crashed*, not where the bug *is*. Needed a nudge to open the console at all — check that next time something breaks.
 
 ## npm-packages
 - status: practicing
@@ -95,18 +116,18 @@
 - evidence: Asked why a backend needs its own folder, answered "it'll be easier to differentiate between backend and frontend" — right instinct, partial reason; extended toward the real one (two separately-run, separately-deployed programs with their own packages and start commands). Locked in client/ + server/ layout.
 
 ## react-component
-- status: seed
+- status: introduced
 - depends-on: why-react, jsx
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Toured the three-file chain (index.html's empty #root div → main.jsx mounts App into it → App.jsx returns the markup) and correctly answered where the visible page content comes from ("from the main.jsx script"). Shown the component skeleton — a function that returns markup, exported by default. Said "makes sense" but has not yet written or edited one; first authorship due in task 1.4.
 
 ## jsx
-- status: seed
+- status: introduced
 - depends-on: why-react
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Shown JSX as HTML-looking syntax inside JavaScript that browsers can't read and Vite translates — hence the .jsx extension. Also shown the `<>...</>` fragment and why a component returns exactly one thing. Told, not yet checked.
 
 ## props
 - status: seed

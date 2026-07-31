@@ -16,7 +16,7 @@
 Tasks:
 - [x] 1.1 Turn the project folder into a git repository and save the first commit (the planning docs) — done 2026-07-31, commit 1fbd265
 - [x] 1.2 Scaffold the React app with Vite and install its packages — done 2026-07-31 (into client/; ESLint chosen over oxlint)
-- [ ] 1.3 Tour the generated files, then run the dev server and see it in the browser
+- [x] 1.3 Tour the generated files, then run the dev server and see it in the browser — done 2026-07-31 (plus a deliberate breakage: removed id="root", read the console error, restored with git)
 - [ ] 1.4 Strip the starter template and make the page say "Job Tracker" (your first component edit)
 - [ ] 1.5 Commit the working app — section deliverable reached
 
