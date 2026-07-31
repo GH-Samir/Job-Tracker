@@ -1,3 +1,6 @@
+import ApplicationCard from "./ApplicationCard"
+
+
 function App() {
   const applications = [
     {
@@ -27,14 +30,10 @@ function App() {
     <>
       <h1>Job Tracker</h1>
       <p>A simple app to track job applications and their status.</p>
-
-      <div>
-        <h2>{applications[0].company}</h2>
-        <p>{applications[0].role}</p>
-        <p>{applications[0].dateApplied}</p>
-        <p>{applications[0].status}</p>
-        <p>{applications[0].deadline}</p>
-      </div>
+          
+      <ApplicationCard application={applications[0]} />
+      <ApplicationCard application={applications[1]} />
+      <ApplicationCard application={applications[2]} />
     </>
   )
 }
