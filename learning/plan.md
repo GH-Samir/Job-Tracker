@@ -20,9 +20,18 @@ Tasks:
 - [x] 1.4 Strip the starter template and make the page say "Job Tracker" (your first component edit) — done 2026-07-31; App.jsx written from a TODO skeleton, demo CSS/assets deleted, tab title changed
 - [x] 1.5 Commit the working app — section deliverable reached — done 2026-07-31, commit 81d1252; split into two commits (app / learning docs) deliberately
 
-### 2. The UI shell (static)  [ ] up next
+### 2. The UI shell (static)  [ ] in progress
 **Deliverable:** the full look of the app — a styled list of fake applications and an add-form — visible, no real data yet.
 **Concepts:** props, list-rendering, css-styling, react-state, controlled-inputs
+
+Tasks:
+- [x] 2.1 Represent a job application as a JavaScript object, and several as an array — hardcoded in App.jsx, first one shown on screen — done 2026-07-31; three fake applications, semantic-HTML correction (headings ≠ sizes), ISO date format parked for section 5
+- [ ] 2.2 Move the card into its own ApplicationCard component and feed it data with props
+- [ ] 2.3 Render the whole array as a list with .map(), including keys
+- [ ] 2.4 Style the page and the cards with CSS
+- [ ] 2.5 Add the "new application" form markup — visible, not yet working
+- [ ] 2.6 Make the form's inputs controlled with React state
+- [ ] 2.7 Commit — section deliverable reached
 
 ### 3. A backend that answers  [ ] not started
 **Deliverable:** a local Express server you can hit in the browser and get a response (hello, or a hardcoded list of applications).

@@ -64,7 +64,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Scaffolded into the wrong folder (terminal was in learning/); ran `pwd` and correctly read off the cause — "client is now under job tracker, not learning" after fixing with `mv client ..`. Correctly predicted moving the folder would NOT break it, reasoning "the packages aren't directory specific". Task 1.4: ran `rm -r` on three paths, correctly predicting the running app would keep working "since theyre not used". Vocabulary met: pwd, cd, mv, rm -r, `..`, Ctrl+C. Told that rm has no OS-level undo and git is the only net.
+- evidence: Scaffolded into the wrong folder (terminal was in learning/); ran `pwd` and correctly read off the cause — "client is now under job tracker, not learning" after fixing with `mv client ..`. Correctly predicted moving the folder would NOT break it, reasoning "the packages aren't directory specific". Task 1.4: ran `rm -r` on three paths, correctly predicting the running app would keep working "since theyre not used". Vocabulary met: pwd, cd, mv, rm -r, `..`, Ctrl+C. Told that rm has no OS-level undo and git is the only net. Task 2.1: ran `npm run dev` from the repo root and hit ENOENT on package.json — **second working-directory mistake of the project**. Diagnosed it themselves once pointed at the error's path. Reinforced: the terminal's location is invisible state; run `pwd` whenever a command misbehaves.
 
 ## vite
 - status: practicing
@@ -99,7 +99,7 @@
 - depends-on: local-environment
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Predicted correctly and with the right mechanism that removing `id="root"` would break the page — "wouldn't load since it wouldn't know where to find the html with id root". Made the edit, saw the blank page, opened DevTools console when prompted and reported the real error ("Target container is not a DOM element. at main.jsx:6:1"). Shown: getElementById returns null when it finds nothing, and the error's file/line is where code *crashed*, not where the bug *is*. Needed a nudge to open the console at all — check that next time something breaks.
+- evidence: Predicted correctly and with the right mechanism that removing `id="root"` would break the page — "wouldn't load since it wouldn't know where to find the html with id root". Made the edit, saw the blank page, opened DevTools console when prompted and reported the real error ("Target container is not a DOM element. at main.jsx:6:1"). Shown: getElementById returns null when it finds nothing, and the error's file/line is where code *crashed*, not where the bug *is*. Task 2.1: asked to predict a breakage and answered "i dont know" — honest, and the right trigger to go look rather than guess. Still needed a nudge to open the console (second time). Then read an ENOENT stack trace and diagnosed it unaided from the path ("needs to look in client folder"), and fixed "application is not defined" by spotting the singular/plural mismatch themselves. Trajectory is good; the remaining gap is reaching for the console unprompted.
 
 ## npm-packages
 - status: practicing
@@ -134,7 +134,35 @@
 - depends-on: why-react
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Shown JSX as HTML-looking syntax inside JavaScript that browsers can't read and Vite translates — hence the .jsx extension, plus `<>...</>` fragments and `{/* */}` comments. Task 1.4: wrote correct JSX inside the fragment unaided. Hasn't yet used `{}` to embed JavaScript values — that lands in section 2.
+- evidence: Shown JSX as HTML-looking syntax inside JavaScript that browsers can't read and Vite translates — hence the .jsx extension, plus `<>...</>` fragments and `{/* */}` comments. Task 1.4: wrote correct JSX inside the fragment unaided. Task 2.1: used `{}` interpolation correctly across five elements to pull values out of an object — the data-to-markup bridge. Hasn't yet put an expression (rather than a plain lookup) inside braces.
+
+## js-objects
+- status: practicing
+- depends-on: why-javascript
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.1: explained in own words why one object beats five loose variables — "we can have these fields grouped to a single application, instead of a bunch of variables". Wrote three complete application objects (company, role, dateApplied, status, deadline) unaided, commas correct. Shown const vs let and camelCase keys.
+
+## js-arrays
+- status: practicing
+- depends-on: js-objects
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.1: converted a single object into an array of three and repointed the markup at `applications[0].company` — index-then-dot access, correct on first try from one worked example. Zero-indexing shown, not yet checked back.
+
+## semantic-html
+- status: practicing
+- depends-on: none
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.1: first pass used h2/h3/h4/h5/h6 for the five fields, treating heading level as font size. Shown that h1–h6 declare a document outline that screen readers and search engines navigate, and that sizing is CSS's job. Then chose company alone as the heading — "company heading since its most unique" — and made the other four `<p>`. Reason given was uniqueness rather than "it's the card's title", but the call was right.
+
+## iso-dates
+- status: seed
+- depends-on: none
+- introduced: —
+- last-reviewed: —
+- evidence: Flagged in task 2.1 and deliberately parked: their fake data uses '12/07/2026', which is ambiguous across locales and doesn't sort. Comes due in section 5 when the database needs to order by date. → [[sql]] [[tables-schema]]
 
 ## props
 - status: seed
