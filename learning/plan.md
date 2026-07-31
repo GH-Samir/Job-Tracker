@@ -9,7 +9,7 @@
 
 ## Sections
 
-### 1. Project setup & a page on screen  [ ] in progress
+### 1. Project setup & a page on screen  [x] COMPLETE 2026-07-31
 **Deliverable:** a React app running locally in the browser showing "Job Tracker", and a first git commit saved.
 **Concepts:** git-commit, vite, npm-packages, project-structure, react-component, jsx
 
@@ -17,10 +17,10 @@ Tasks:
 - [x] 1.1 Turn the project folder into a git repository and save the first commit (the planning docs) — done 2026-07-31, commit 1fbd265
 - [x] 1.2 Scaffold the React app with Vite and install its packages — done 2026-07-31 (into client/; ESLint chosen over oxlint)
 - [x] 1.3 Tour the generated files, then run the dev server and see it in the browser — done 2026-07-31 (plus a deliberate breakage: removed id="root", read the console error, restored with git)
-- [ ] 1.4 Strip the starter template and make the page say "Job Tracker" (your first component edit)
-- [ ] 1.5 Commit the working app — section deliverable reached
+- [x] 1.4 Strip the starter template and make the page say "Job Tracker" (your first component edit) — done 2026-07-31; App.jsx written from a TODO skeleton, demo CSS/assets deleted, tab title changed
+- [x] 1.5 Commit the working app — section deliverable reached — done 2026-07-31, commit 81d1252; split into two commits (app / learning docs) deliberately
 
-### 2. The UI shell (static)  [ ] not started
+### 2. The UI shell (static)  [ ] up next
 **Deliverable:** the full look of the app — a styled list of fake applications and an add-form — visible, no real data yet.
 **Concepts:** props, list-rendering, css-styling, react-state, controlled-inputs
 

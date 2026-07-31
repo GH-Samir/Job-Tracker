@@ -50,7 +50,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Ran git init/add/commit unaided. Correctly named the "untracked files" heading before seeing it. Predicted the staged heading as "tracked files" (actual: "Changes to be committed") — corrected toward staging being a queue of changes, not a file status. Correctly predicted `git log --oneline` would print one line beginning with the commit hash. Task 1.3: committed the scaffold unprompted between sessions (311ba79 "install react and its dependancies and vite"); ran `git diff` on a deliberate breakage and read it correctly ("changed the id"); used `git restore` to undo it. Shown the -/+ diff convention.
+- evidence: Ran git init/add/commit unaided. Correctly named the "untracked files" heading before seeing it. Predicted the staged heading as "tracked files" (actual: "Changes to be committed") — corrected toward staging being a queue of changes, not a file status. Correctly predicted `git log --oneline` would print one line beginning with the commit hash. Task 1.3: committed the scaffold unprompted between sessions (311ba79 "install react and its dependancies and vite"); ran `git diff` on a deliberate breakage and read it correctly ("changed the id"); used `git restore` to undo it. Shown the -/+ diff convention. Task 1.5: reviewed with `git diff --staged` before committing and wrote an imperative, diff-describing message unaided (81d1252). Five commits made, all by their own hand.
 
 ## gitignore
 - status: practicing
@@ -64,7 +64,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Scaffolded into the wrong folder (terminal was in learning/); ran `pwd` and correctly read off the cause — "client is now under job tracker, not learning" after fixing with `mv client ..`. Correctly predicted moving the folder would NOT break it, reasoning "the packages aren't directory specific". Vocabulary met: pwd, cd, mv, `..`, Ctrl+C.
+- evidence: Scaffolded into the wrong folder (terminal was in learning/); ran `pwd` and correctly read off the cause — "client is now under job tracker, not learning" after fixing with `mv client ..`. Correctly predicted moving the folder would NOT break it, reasoning "the packages aren't directory specific". Task 1.4: ran `rm -r` on three paths, correctly predicting the running app would keep working "since theyre not used". Vocabulary met: pwd, cd, mv, rm -r, `..`, Ctrl+C. Told that rm has no OS-level undo and git is the only net.
 
 ## vite
 - status: practicing
@@ -72,6 +72,13 @@
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
 - evidence: Told what Vite is (translates React into what browsers understand + dev server). Ran `npm create vite@latest client -- --template react` themselves. Predicted the scaffold would yield an immediately-working app — correct, but for a reason they hadn't accounted for (Vite 8 auto-installs and starts; older versions require a separate `npm install`). Task 1.3: ran `npm run dev` and confirmed the app in the browser at localhost:5173. Toured vite.config.js (plugins: [react()]) and the public/ vs src/assets/ split — told, not yet checked back.
+
+## git-staging
+- status: practicing
+- depends-on: git-commit
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 1.5: said unprompted that unrelated app and docs changes should NOT share a commit, "so we should be able to undo one and keep the other". Staged selectively with `git add client`. Correctly predicted that plain `git diff` would not show the staged App.jsx rewrite. **Recurring slip to watch:** twice now has said "tracked" where the word is "staged" (task 1.1 and again here) — tracked = git watches the file at all; staged = queued for the next commit. Re-check this one.
 
 ## npm-scripts
 - status: introduced
@@ -81,11 +88,11 @@
 - evidence: Asked how npm resolves the word `dev`; first answered "it looks in main.jsx and follows down the chain" — conflated the browser runtime chain with npm's command lookup. Redirected to package.json's `scripts` section and correctly read off `vite`. Shown the dev/build/preview/lint convention. Worth re-checking.
 
 ## imports-exports
-- status: introduced
+- status: practicing
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App` as the other half of `import App`. Told, not yet checked or written.
+- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App`. Task 1.4: correctly predicted that deleting assets/CSS before rewriting App.jsx would error because the imports would point at missing files, which set the work order. Traced leftover styling to `import './index.css'` in main.jsx after a nudge (first guess also included index.html, which contains no styles).
 
 ## reading-errors
 - status: practicing
@@ -99,7 +106,7 @@
 - depends-on: nodejs
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Read package.json unaided and explained the 2-vs-105 gap in own words: "i might only use 2 in the program (react and react-dom) but they are dependant on all 105". Shown dependencies vs devDependencies and package-lock.json as the exact-version recipe; not yet checked back.
+- evidence: Read package.json unaided and explained the 2-vs-105 gap in own words: "i might only use 2 in the program (react and react-dom) but they are dependant on all 105". Task 1.5 tour check passed unaided: "package-lock is like the recipe, the exact versions of the packages needed, node modules are the packages themselves, which do not need to be shipped hence why theyre in the gitignore" — one nudge on wording (node_modules IS needed to run; it's just rebuildable, so not worth storing in git).
 
 ## linting
 - status: introduced
@@ -116,18 +123,18 @@
 - evidence: Asked why a backend needs its own folder, answered "it'll be easier to differentiate between backend and frontend" — right instinct, partial reason; extended toward the real one (two separately-run, separately-deployed programs with their own packages and start commands). Locked in client/ + server/ layout.
 
 ## react-component
-- status: introduced
+- status: practicing
 - depends-on: why-react, jsx
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Toured the three-file chain (index.html's empty #root div → main.jsx mounts App into it → App.jsx returns the markup) and correctly answered where the visible page content comes from ("from the main.jsx script"). Shown the component skeleton — a function that returns markup, exported by default. Said "makes sense" but has not yet written or edited one; first authorship due in task 1.4.
+- evidence: Toured the three-file chain (index.html's empty #root div → main.jsx mounts App into it → App.jsx returns the markup) and correctly answered where the visible page content comes from ("from the main.jsx script"). Task 1.4: authored the body of App.jsx from a TODO skeleton — correct h1 and p, first code written in this project. Has only written a static component; props and state still ahead.
 
 ## jsx
-- status: introduced
+- status: practicing
 - depends-on: why-react
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Shown JSX as HTML-looking syntax inside JavaScript that browsers can't read and Vite translates — hence the .jsx extension. Also shown the `<>...</>` fragment and why a component returns exactly one thing. Told, not yet checked.
+- evidence: Shown JSX as HTML-looking syntax inside JavaScript that browsers can't read and Vite translates — hence the .jsx extension, plus `<>...</>` fragments and `{/* */}` comments. Task 1.4: wrote correct JSX inside the fragment unaided. Hasn't yet used `{}` to embed JavaScript values — that lands in section 2.
 
 ## props
 - status: seed
@@ -144,11 +151,11 @@
 - evidence: —
 
 ## css-styling
-- status: seed
+- status: introduced
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Shown the convention — index.css is global because main.jsx (the entry point) imports it; App.css was per-component. Emptied index.css and observed the result, correctly reporting "no styling"; told that what remains is the browser's own default stylesheet, not an absence of style. Has prior HTML/CSS experience but has written no CSS in this project yet — section 2.
 
 ## react-state
 - status: seed

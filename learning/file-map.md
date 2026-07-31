@@ -20,14 +20,14 @@ Project root: `/home/samir/job-tracker` — everything below is relative to it.
 - node_modules/ — generated (2026-07-31) — 98 MB of downloaded packages. Machine-made, never edit, rebuildable any time with `npm install`. Kept out of git entirely. → [[npm-packages]] [[gitignore]]
 - .gitignore — known (2026-07-31) — the list of paths git must never track. Kept 4,350 files down to 17. → [[gitignore]]
 - eslint.config.js — parked — settings for ESLint, the linter that reads your code and flags mistakes. Untouched so far; comes due when it first complains at you. → [[linting]]
-- index.html — known (2026-07-31) — the one and only web page in the app. Its `<body>` holds an empty `<div id="root">` for React to fill, and a script tag pointing at main.jsx. Everything visible is put there by JavaScript. → [[react-component]]
+- index.html — known (2026-07-31) — the one and only web page in the app. Its `<body>` holds an empty `<div id="root">` for React to fill, and a script tag pointing at main.jsx. Everything visible is put there by JavaScript — except the `<title>`, which is set before React runs. → [[react-component]]
 - vite.config.js — known (2026-07-31) — Vite's settings; the only meaningful line is `plugins: [react()]`. Gets edited in section 4 to talk to the backend. → [[vite]]
 - README.md — known (2026-07-31) — Vite's generic blurb; to be replaced with a description of this project.
-- public/ — known (2026-07-31) — files served exactly as-is at a plain URL (favicon.svg, icons.svg). Contrast with src/assets/, which are imported and processed. → [[vite]]
+- public/ — known (2026-07-31) — files served exactly as-is at a plain URL. Now holds only favicon.svg (the tab icon); the demo's icons.svg was deleted in task 1.4. Contrast with imported files under src/, which Vite processes. → [[vite]]
 
 ## /client/src — the React source you actually write
-- main.jsx — known (2026-07-31) — the entry point: grabs `#root` from index.html and mounts `<App />` into it. Middle link of the chain. → [[imports-exports]] [[react-component]]
-- App.jsx — known (2026-07-31) — the root component: a function returning JSX. Currently Vite's demo page; gets stripped in task 1.4. → [[react-component]] [[jsx]]
-- index.css — known (2026-07-31) — styles for the whole page. Demo styles, cleared in task 1.4. → [[css-styling]]
-- App.css — known (2026-07-31) — styles for the App component. Demo styles, cleared in task 1.4. → [[css-styling]]
-- assets/ — known (2026-07-31) — images imported by name inside components (the React/Vite logos, hero.png). Deleted with the demo in task 1.4.
+- main.jsx — known (2026-07-31) — the entry point: grabs `#root` from index.html and mounts `<App />` into it. Middle link of the chain. Also imports index.css, which is what makes those styles global. → [[imports-exports]] [[react-component]]
+- App.jsx — known (2026-07-31) — the root component, and the first file you wrote: a function returning the Job Tracker heading and tagline as JSX. Imports nothing. Everything you build in section 2 grows from here. → [[react-component]] [[jsx]]
+- index.css — known (2026-07-31) — global styles for the whole app, reaching the page via main.jsx's import. Emptied in task 1.4; you fill it in section 2. → [[css-styling]]
+
+Deleted in task 1.4 (recoverable from git history): src/App.css, src/assets/, public/icons.svg — all Vite demo content nothing referenced once App.jsx was rewritten.
