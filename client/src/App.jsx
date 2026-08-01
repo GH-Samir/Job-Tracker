@@ -1,5 +1,5 @@
 import ApplicationCard from "./ApplicationCard"
-
+import ApplicationForm from "./ApplicationForm"
 
 function App() {
   const applications = [
@@ -41,7 +41,7 @@ function App() {
     <div className="app">
       <h1>Job Tracker</h1>
       <p className="tagline">A simple app to track job applications and their status.</p>
-
+      <ApplicationForm />
       <div className="card-list">
         {applications.map((application) => <ApplicationCard key={application.id} application={application}/>)}
       </div>
