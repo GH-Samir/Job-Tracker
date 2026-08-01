@@ -169,14 +169,14 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Task 2.1: first pass used h2/h3/h4/h5/h6 for the five fields, treating heading level as font size. Shown that h1–h6 declare a document outline that screen readers and search engines navigate, and that sizing is CSS's job. Then chose company alone as the heading — "company heading since its most unique" — and made the other four `<p>`. Reason given was uniqueness rather than "it's the card's title", but the call was right. Task 2.5: shown that two unlabelled dates on a card is a *markup* problem no CSS can fix, and proposed the fix themselves ("i'd just add the date label in the same string before the date"); refined to a `<span className="label">` so the label is stylable. Also met `className` (not `class`, a reserved word) and `htmlFor` (not `for`).
+- evidence: Task 2.1: first pass used h2/h3/h4/h5/h6 for the five fields, treating heading level as font size. Shown that h1–h6 declare a document outline that screen readers and search engines navigate, and that sizing is CSS's job. Then chose company alone as the heading — "company heading since its most unique" — and made the other four `<p>`. Reason given was uniqueness rather than "it's the card's title", but the call was right. Task 2.5: shown that two unlabelled dates on a card is a *markup* problem no CSS can fix, and proposed the fix themselves ("i'd just add the date label in the same string before the date"); refined to a `<span className="label">` so the label is stylable. Also met `className` (not `class`, a reserved word) and `htmlFor` (not `for`). Task 2.6: omitted the `<label>` on the role field and, when asked to compare it against the working company block, added it. Shown why label/input pairing matters — bigger tap target, and a screen reader announcing "Company, edit text" rather than a bare "edit text".
 
 ## iso-dates
-- status: seed
+- status: introduced
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: Flagged in task 2.1 and deliberately parked: their fake data uses '12/07/2026', which is ambiguous across locales and doesn't sort. Comes due in section 5 when the database needs to order by date. → [[sql]] [[tables-schema]]
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Flagged in task 2.1 and parked: the hardcoded data uses '12/07/2026', ambiguous across locales and unsortable. Task 2.6 resolved it for *new* input — `<input type="date">` localises the display but always yields `YYYY-MM-DD`, which they saw for themselves in the submitted query string. **Open inconsistency to settle in 2.7:** the four hardcoded applications still use DD/MM/YYYY while the form now produces ISO, so the same field carries two formats. → [[sql]] [[tables-schema]]
 
 ## props
 - status: practicing
@@ -218,14 +218,28 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-08-01
-- evidence: Shown the convention — index.css is global because main.jsx imports it. Task 2.5: **self-calibrated as "i know how css works, just not the syntax very well"** — accurate, and the right thing to have said. Got stuck facing an empty stylesheet and asked for help; unblocked by worked examples and then wrote `.label` and the three `.status-*` rules with correct syntax unaided. Caught two design problems himself: that all three badges shared one background, and that mixed-case status data rendered inconsistently. Applied the DRY fix (lifting `text-transform` from three rules onto `.status`) once the duplication was named — same principle he met in task 2.2. Shown: shorthand value order (1/2/3/4 values), `rem` vs `px`, `margin: 0 auto` centering, `max-width` vs `width`, flexbox column + `gap`, `display: inline-block` for badges, the `border-radius: 999px` pill trick, and why browser default margins get zeroed. **Needs more reps starting from blank.**
+- evidence: Shown the convention — index.css is global because main.jsx imports it. Task 2.5: **self-calibrated as "i know how css works, just not the syntax very well"** — accurate, and the right thing to have said. Got stuck facing an empty stylesheet and asked for help; unblocked by worked examples and then wrote `.label` and the three `.status-*` rules with correct syntax unaided. Caught two design problems himself: that all three badges shared one background, and that mixed-case status data rendered inconsistently. Applied the DRY fix (lifting `text-transform` from three rules onto `.status`) once the duplication was named — same principle he met in task 2.2. Shown: shorthand value order (1/2/3/4 values), `rem` vs `px`, `margin: 0 auto` centering, `max-width` vs `width`, flexbox column + `gap`, `display: inline-block` for badges, the `border-radius: 999px` pill trick, and why browser default margins get zeroed. **Needs more reps starting from blank.** Task 2.6: met descendant selectors (`.form label`), selector lists (`.form input, .form select`), and the `font: inherit` gotcha — form controls don't inherit the page font. Wrote `.form button` but stopped short: `cursor: pointer`, `font: inherit` and padding all had to be pointed out after the fact. **Pattern to watch:** produces valid CSS but under-finishes a rule; doesn't yet self-check a new element against the ones beside it.
 
 ## jsx-element-anatomy
 - status: practicing
 - depends-on: jsx
 - introduced: 2026-07-31
-- last-reviewed: 2026-08-01
-- evidence: **Recurring failure — twice.** Task 2.4: wrote `key` as its own element (`<key = application.id>`) instead of a prop. Task 2.5: wrote `<p> className={...}</p>`, putting the attribute in the children slot because the `>` closed the tag too early. Needed the anatomy spelled out (`<tag attr={...}>children</tag>`) and a side-by-side against a working line in their own file before it landed. **Re-check this at the next opportunity** — it's the highest-value thing to make automatic, since every prop, event handler and style in React depends on it.
+- last-reviewed: 2026-08-02
+- evidence: **Failed twice.** Task 2.4: wrote `key` as its own element (`<key = application.id>`). Task 2.5: wrote `<p> className={...}</p>`, attribute in the children slot because the `>` closed the tag early. Needed the anatomy spelled out and a side-by-side against a working line in their own file. **Task 2.6 review: PASSED** — asked cold to write a `<p>` with class `note` and text `Hello`, produced `<p className="note">...` with the attribute correctly placed. Two lesser slips in the same line: wrapped the text child in quotes and parens (`("Hello")`) and mistyped the closing tag (`</p/`). Held at practicing rather than understood because of those; one more clean recall earns the upgrade.
+
+## html-forms
+- status: practicing
+- depends-on: semantic-html
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 2.6: said unprompted that `id` should not be a form field and gave the right reason — "might be a conflict in IDs, two applications with the same ID which will cause errors". Reasoned from the status field's fixed vocabulary to a dropdown without being told ("they might enter an invalid status... would reach for a multiple choice dropdown menu"), including the failure mode (an unmatched `.status-*` class silently loses its styling). **Correctly predicted the default submit behaviour — "nothing happens except page reload"** — then read the query string out of the address bar. Shown: `name` is the submission key vs `id` for label pairing, `<option value>` (machine) vs its text (human), forms GET to `action` by default. Sets up `preventDefault` in 2.7.
+
+## validation
+- status: introduced
+- depends-on: error-handling
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 2.6: met the idea early via the status dropdown — shown the principle "make invalid states impossible to express" as better than validating after the fact. Also shown in 2.5 that `'offer'`/`'Offer'`/`'OFFER'` being three distinct values is the problem validation exists to remove. Not yet written any validation code — section 7.
 
 ## template-literals
 - status: introduced

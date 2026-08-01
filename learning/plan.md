@@ -32,7 +32,8 @@ Tasks:
 - [x] 2.5 Style the page and the cards with CSS — done 2026-08-01; card layout, labelled date fields, and colour-coded status badges (OFFER / PENDING / REJECTED)
 
 **Parked (your call, 2026-08-01):** statuses are three values for the MVP. Interview stages ("Applied → Interviewing") come later — extending costs one status value plus one CSS rule.
-- [ ] 2.6 Add the "new application" form markup — visible, not yet working
+- [x] 2.6 Add the "new application" form markup — visible, not yet working — done 2026-08-02; ApplicationForm component, labelled fields, status dropdown, date inputs, styled. Submitting still does the browser's default reload.
+      **Carry into 2.7:** the hardcoded applications use DD/MM/YYYY but `type="date"` produces YYYY-MM-DD — one field, two formats. Settle it.
 - [ ] 2.7 Make the form's inputs controlled with React state
 - [ ] 2.8 Commit — section deliverable reached
 
