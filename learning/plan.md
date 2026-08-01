@@ -29,7 +29,9 @@ Tasks:
 - [x] 2.2 Move the card into its own ApplicationCard component and feed it data with props — done 2026-07-31; three cards on screen, one line each
 - [x] 2.3 Put the project on GitHub and push — done 2026-07-31. ed25519 SSH key pair, public half on GitHub, branch renamed master → main, 11 commits pushed to github.com/GH-Samir/Job-Tracker (public).
 - [x] 2.4 Render the whole array as a list with .map(), including keys — done 2026-07-31; four cards from one line of markup, `id` added to each object ahead of section 5's primary keys
-- [ ] 2.5 Style the page and the cards with CSS
+- [x] 2.5 Style the page and the cards with CSS — done 2026-08-01; card layout, labelled date fields, and colour-coded status badges (OFFER / PENDING / REJECTED)
+
+**Parked (your call, 2026-08-01):** statuses are three values for the MVP. Interview stages ("Applied → Interviewing") come later — extending costs one status value plus one CSS rule.
 - [ ] 2.6 Add the "new application" form markup — visible, not yet working
 - [ ] 2.7 Make the form's inputs controlled with React state
 - [ ] 2.8 Commit — section deliverable reached

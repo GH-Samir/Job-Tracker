@@ -169,7 +169,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Task 2.1: first pass used h2/h3/h4/h5/h6 for the five fields, treating heading level as font size. Shown that h1–h6 declare a document outline that screen readers and search engines navigate, and that sizing is CSS's job. Then chose company alone as the heading — "company heading since its most unique" — and made the other four `<p>`. Reason given was uniqueness rather than "it's the card's title", but the call was right.
+- evidence: Task 2.1: first pass used h2/h3/h4/h5/h6 for the five fields, treating heading level as font size. Shown that h1–h6 declare a document outline that screen readers and search engines navigate, and that sizing is CSS's job. Then chose company alone as the heading — "company heading since its most unique" — and made the other four `<p>`. Reason given was uniqueness rather than "it's the card's title", but the call was right. Task 2.5: shown that two unlabelled dates on a card is a *markup* problem no CSS can fix, and proposed the fix themselves ("i'd just add the date label in the same string before the date"); refined to a `<span className="label">` so the label is stylable. Also met `className` (not `class`, a reserved word) and `htmlFor` (not `for`).
 
 ## iso-dates
 - status: seed
@@ -214,11 +214,32 @@
 - evidence: Task 2.4: correctly answered that `numbers` is still `[1, 2, 3]` after `.map()` — map returns a new array rather than modifying the original. Told this is the same instinct as props being read-only, and that it becomes load-bearing at task 2.7 (state). Not yet tested where it matters.
 
 ## css-styling
-- status: introduced
+- status: practicing
 - depends-on: none
 - introduced: 2026-07-31
-- last-reviewed: 2026-07-31
-- evidence: Shown the convention — index.css is global because main.jsx (the entry point) imports it; App.css was per-component. Emptied index.css and observed the result, correctly reporting "no styling"; told that what remains is the browser's own default stylesheet, not an absence of style. Has prior HTML/CSS experience but has written no CSS in this project yet — section 2.
+- last-reviewed: 2026-08-01
+- evidence: Shown the convention — index.css is global because main.jsx imports it. Task 2.5: **self-calibrated as "i know how css works, just not the syntax very well"** — accurate, and the right thing to have said. Got stuck facing an empty stylesheet and asked for help; unblocked by worked examples and then wrote `.label` and the three `.status-*` rules with correct syntax unaided. Caught two design problems himself: that all three badges shared one background, and that mixed-case status data rendered inconsistently. Applied the DRY fix (lifting `text-transform` from three rules onto `.status`) once the duplication was named — same principle he met in task 2.2. Shown: shorthand value order (1/2/3/4 values), `rem` vs `px`, `margin: 0 auto` centering, `max-width` vs `width`, flexbox column + `gap`, `display: inline-block` for badges, the `border-radius: 999px` pill trick, and why browser default margins get zeroed. **Needs more reps starting from blank.**
+
+## jsx-element-anatomy
+- status: practicing
+- depends-on: jsx
+- introduced: 2026-07-31
+- last-reviewed: 2026-08-01
+- evidence: **Recurring failure — twice.** Task 2.4: wrote `key` as its own element (`<key = application.id>`) instead of a prop. Task 2.5: wrote `<p> className={...}</p>`, putting the attribute in the children slot because the `>` closed the tag too early. Needed the anatomy spelled out (`<tag attr={...}>children</tag>`) and a side-by-side against a working line in their own file before it landed. **Re-check this at the next opportunity** — it's the highest-value thing to make automatic, since every prop, event handler and style in React depends on it.
+
+## template-literals
+- status: introduced
+- depends-on: why-javascript
+- introduced: 2026-07-31
+- last-reviewed: 2026-08-01
+- evidence: Task 2.5: needed for the dynamic `className`. Struggled — first attempt had no backticks, wrong casing method, attribute in the wrong place, and dropped the visible content; the assembled line was ultimately handed over rather than derived. Did afterwards explain correctly why one copy of the status is lowercased and one isn't ("the one we're lowercasing may have capital letters"), sharpened to: one is read by CSS (case-sensitive), one by a person. Has not yet written a template literal unprompted.
+
+## accessibility-contrast
+- status: introduced
+- depends-on: css-styling
+- introduced: 2026-07-31
+- last-reviewed: 2026-08-01
+- evidence: Task 2.5: chose `#FF0000` for labels and bright amber for the pending badge; shown that red carries meaning (error/urgency) and shouldn't be spent decoratively — **reached the same conclusion independently**, proposing status colour-coding as the better use of red. Needed three passes to land a readable amber (#FFBF00 → #FFA500 → #8a5300). Shown the WCAG thresholds (4.5:1 normal text, 3:1 large) and the DevTools colour-picker contrast readout; confirmed the ratio jumped when the colour changed. Concept met, not yet self-applied.
 
 ## react-state
 - status: seed
