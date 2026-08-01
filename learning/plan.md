@@ -28,7 +28,7 @@ Tasks:
 - [x] 2.1 Represent a job application as a JavaScript object, and several as an array — hardcoded in App.jsx, first one shown on screen — done 2026-07-31; three fake applications, semantic-HTML correction (headings ≠ sizes), ISO date format parked for section 5
 - [x] 2.2 Move the card into its own ApplicationCard component and feed it data with props — done 2026-07-31; three cards on screen, one line each
 - [x] 2.3 Put the project on GitHub and push — done 2026-07-31. ed25519 SSH key pair, public half on GitHub, branch renamed master → main, 11 commits pushed to github.com/GH-Samir/Job-Tracker (public).
-- [ ] 2.4 Render the whole array as a list with .map(), including keys
+- [x] 2.4 Render the whole array as a list with .map(), including keys — done 2026-07-31; four cards from one line of markup, `id` added to each object ahead of section 5's primary keys
 - [ ] 2.5 Style the page and the cards with CSS
 - [ ] 2.6 Add the "new application" form markup — visible, not yet working
 - [ ] 2.7 Make the form's inputs controlled with React state

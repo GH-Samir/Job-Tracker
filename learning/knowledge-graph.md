@@ -186,11 +186,32 @@
 - evidence: Task 2.2: described the mechanism before seeing the syntax — "you would run the application card component function on an application, and it would generate the markup for it". Wrote `<ApplicationCard application={applications[0]} />` and `props.application.role` correctly across two files. Correctly predicted a second card would cost 1 line vs ~8 for copy-paste. Asked why the card not knowing its index is good, answered "lets me sort it however i like" — a real consequence, but the general principle (the card is decoupled from its data source) was supplied rather than retrieved. Shown but not yet checked: props are read-only and flow parent → child. Destructuring (`{ application }`) deliberately not taught yet — the props-is-one-object model comes first.
 
 ## list-rendering
-- status: seed
-- depends-on: react-component
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- status: practicing
+- depends-on: react-component, arrow-functions
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.4: wrote `{applications.map((application) => <ApplicationCard ... />)}` from a shown shape, replacing three hardcoded cards. First save had an unclosed outer brace — **fixed it themselves without being told**, which is a step up from the JSX-comment snag in 2.2. Correctly predicted that adding a fourth application changes zero lines of markup, and confirmed it. Shown: `{}` renders any JS expression, and React renders an array of elements in order.
+
+## arrow-functions
+- status: introduced
+- depends-on: why-javascript
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.4: used `(application) => <ApplicationCard ... />` correctly, but from a template I supplied. Shown the `function (n) { return n * 2 }` equivalence and the implicit-return rule for single-expression bodies. Has not yet written one unprompted or used a braced multi-statement body.
+
+## react-keys
+- status: practicing
+- depends-on: list-rendering
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.4: opened the console when prompted and found the "each child should have a unique key prop" warning — note the page looked fine, so this only surfaced by looking. Proposed `company` as the key with sound reasoning ("the other fields could repeat"); shown the same-company-twice failure and that no descriptive field is a safe identifier. **First attempt wrote the key as an element — `<key = application.id>` — rather than a prop**; corrected by pointing at their own `application={...}` from task 2.2. Told that React consumes `key` so it never reaches props. Connected `id` to the database primary key coming in section 5. → [[tables-schema]]
+
+## immutability
+- status: introduced
+- depends-on: js-arrays
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.4: correctly answered that `numbers` is still `[1, 2, 3]` after `.map()` — map returns a new array rather than modifying the original. Told this is the same instinct as props being read-only, and that it becomes load-bearing at task 2.7 (state). Not yet tested where it matters.
 
 ## css-styling
 - status: introduced
