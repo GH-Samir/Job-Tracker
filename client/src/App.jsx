@@ -8,7 +8,7 @@ function App() {
       company: 'Anthropic',
       role: 'Software Engineer Intern',
       dateApplied: '12/07/2026',
-      status: 'Pending',
+      status: 'PENDING',
       deadline: '17/07/2026'
     },
     {
@@ -16,7 +16,7 @@ function App() {
       company: 'Microsoft',
       role: 'Data Analyst',
       dateApplied: '02/05/2026',
-      status: 'Pending',
+      status: 'OFFER',
       deadline: '17/05/2026'
     },
     {
@@ -24,7 +24,7 @@ function App() {
       company: 'Acturis',
       role: 'Integrations Developer',
       dateApplied: '19/05/2026',
-      status: 'Pending',
+      status: 'REJECTED',
       deadline: '01/07/2026'
     },
     {
@@ -32,17 +32,20 @@ function App() {
       company: 'Google',
       role: 'Security consultant',
       dateApplied: '11/08/2026',
-      status: 'Pending',
+      status: 'PENDING',
       deadline: '24/09/2026'
     }
   ]
 
   return (
-    <>
+    <div className="app">
       <h1>Job Tracker</h1>
-      <p>A simple app to track job applications and their status.</p>
-      {applications.map((application) => <ApplicationCard key={application.id} application={application}/>)}
-    </>
+      <p className="tagline">A simple app to track job applications and their status.</p>
+
+      <div className="card-list">
+        {applications.map((application) => <ApplicationCard key={application.id} application={application}/>)}
+      </div>
+    </div>
   )
 }
 
