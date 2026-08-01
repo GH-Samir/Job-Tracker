@@ -57,7 +57,7 @@
 - depends-on: git-commit
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Correctly said node_modules should not be committed, but reasoned "not all the packages are needed" — corrected toward the real rule: they're all needed, but rebuildable from package.json, and git tracks what you author, not what a machine generates. Then correctly described .gitignore's behaviour ("it will list all of them except the ones in gitignore") and ballparked the surviving file count at 9 (actual 16) by reasoning from what Vite generates.
+- evidence: Correctly said node_modules should not be committed, but reasoned "not all the packages are needed" — corrected toward the real rule: they're all needed, but rebuildable from package.json, and git tracks what you author, not what a machine generates. Then correctly described .gitignore's behaviour ("it will list all of them except the ones in gitignore") and ballparked the surviving file count at 9 (actual 16) by reasoning from what Vite generates. Task 2.3, unaided synthesis after the first push came to 61 KiB: "most of it are the packages, which are in gitignore, i would get a working app back from github since i have package-lock.json which tells me which packages npm has to install." That's the whole rebuildability argument in their own words.
 
 ## local-environment
 - status: practicing
@@ -72,6 +72,20 @@
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
 - evidence: Told what Vite is (translates React into what browsers understand + dev server). Ran `npm create vite@latest client -- --template react` themselves. Predicted the scaffold would yield an immediately-working app — correct, but for a reason they hadn't accounted for (Vite 8 auto-installs and starts; older versions require a separate `npm install`). Task 1.3: ran `npm run dev` and confirmed the app in the browser at localhost:5173. Toured vite.config.js (plugins: [react()]) and the public/ vs src/assets/ split — told, not yet checked back.
+
+## public-key-auth
+- status: practicing
+- depends-on: none
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.3: explained the encryption direction unprompted — "public key is shared without any privacy, and it is used to encrypt. private key is kept private and used to decrypt". Shown the second direction (sign with private, verify with public) which is what SSH auth actually does, and that the private key is never transmitted. **Asked "should i give you the keys?"** — good instinct to check; told the rule that a private key never leaves the machine. Predicted `ssh-keygen` would create one file; it creates two (a pair = two halves), and the permission bits (600 vs 644) encode the secrecy model. Generated an ed25519 pair with a passphrase, added the public half to GitHub, verified with `ssh -T`. Correctly predicted GitHub would not give a shell.
+
+## git-remotes
+- status: practicing
+- depends-on: git-commit, public-key-auth
+- introduced: 2026-07-31
+- last-reviewed: 2026-07-31
+- evidence: Task 2.3: asked unprompted "whats the point of pushing my commits and when should i do it?" — the reason this task was added to the plan at all. Correctly predicted `git push` sends all 11 commits, not just the latest ("push sends history, not a snapshot"). Ran remote add, `git push -u origin main`, and `git remote set-url` after a case-mismatch redirect (`job-tracker` vs `Job-Tracker`). Misread the "repository moved" notice as being about the local folder name — corrected toward it being capitalisation of the remote name. Renamed master → main and was told why the industry moved. Shown: `origin` is a convention, `-u` sets upstream tracking.
 
 ## git-staging
 - status: practicing

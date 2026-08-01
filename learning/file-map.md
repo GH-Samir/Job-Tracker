@@ -11,7 +11,9 @@ Project root: `/home/samir/job-tracker` — everything below is relative to it.
   - plan.md — known (2026-07-31) — the build plan and locked decisions
   - knowledge-graph.md — known (2026-07-31) — the living map of what you actually know
   - file-map.md — known (2026-07-31) — this file: why every file in the repo exists
-- .git/ — known (2026-07-31) — the repository itself: every commit ever made lives here. Hidden (leading dot). Never edit by hand; you change it only through git commands. → [[git-commit]]
+- .git/ — known (2026-07-31) — the repository itself: every commit ever made lives here. Hidden (leading dot). Never edit by hand; you change it only through git commands. Since task 2.3 it also stores the `origin` remote pointing at github.com/GH-Samir/Job-Tracker. → [[git-commit]] [[git-remotes]]
+
+Not in the repo, but the project depends on it: `~/.ssh/id_ed25519` (private, never leaves this machine) and `~/.ssh/id_ed25519.pub` (public half, on GitHub). → [[public-key-auth]]
 - client/ — known (2026-07-31) — the React frontend: one of the two separate programs this project runs. Its own packages, own start command, own future deployment. The backend will live beside it in server/. → [[project-structure]]
 
 ## /client — the React app (scaffolded by Vite, task 1.2)
