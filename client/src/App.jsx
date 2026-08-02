@@ -7,33 +7,33 @@ function App() {
       id: 0,
       company: 'Anthropic',
       role: 'Software Engineer Intern',
-      dateApplied: '12/07/2026',
+      dateApplied: '2026-07-12',
       status: 'PENDING',
-      deadline: '17/07/2026'
+      deadline: '2026-07-17'
     },
     {
       id: 1,
       company: 'Microsoft',
       role: 'Data Analyst',
-      dateApplied: '02/05/2026',
+      dateApplied: '2026-05-02',
       status: 'OFFER',
-      deadline: '17/05/2026'
+      deadline: '2026-05-17'
     },
     {
       id: 2,
       company: 'Acturis',
       role: 'Integrations Developer',
-      dateApplied: '19/05/2026',
+      dateApplied: '2026-05-19',
       status: 'REJECTED',
-      deadline: '01/07/2026'
+      deadline: '2026-07-01'
     },
     {
       id: 3,
       company: 'Google',
       role: 'Security consultant',
-      dateApplied: '11/08/2026',
+      dateApplied: '2026-08-11',
       status: 'PENDING',
-      deadline: '24/09/2026'
+      deadline: '2026-09-24'
     }
   ]
 
