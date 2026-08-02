@@ -128,3 +128,10 @@ body {
     color: #b42318;
     background: #FFB8B8;
 }
+
+.error {
+  color: #b42318;
+  background: #fdecea;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+}
