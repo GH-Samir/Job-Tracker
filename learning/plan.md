@@ -20,7 +20,7 @@ Tasks:
 - [x] 1.4 Strip the starter template and make the page say "Job Tracker" (your first component edit) — done 2026-07-31; App.jsx written from a TODO skeleton, demo CSS/assets deleted, tab title changed
 - [x] 1.5 Commit the working app — section deliverable reached — done 2026-07-31, commit 81d1252; split into two commits (app / learning docs) deliberately
 
-### 2. The UI shell (static)  [ ] in progress
+### 2. The UI shell (static)  [x] COMPLETE 2026-08-02
 **Deliverable:** the full look of the app — a styled list of fake applications and an add-form — visible, no real data yet.
 **Concepts:** props, list-rendering, css-styling, react-state, controlled-inputs
 
@@ -37,9 +37,9 @@ Tasks:
 - [x] 2.7 Make the form's inputs controlled with React state — done 2026-08-02; five controlled fields, onSubmit with preventDefault, submitted object logged to console. Hardcoded dates converted to ISO.
       **Parked:** displaying ISO dates in a human-friendly form (cards currently show `2026-07-12`).
       **Parked:** the submitted object doesn't reach the list yet — that's section 6 (CRUD), which needs state lifted into App.
-- [ ] 2.8 Commit — section deliverable reached
+- [x] 2.8 Commit — section deliverable reached — done 2026-08-02 (committed and pushed unprompted, efb3cd1 + b9f3cf7)
 
-### 3. A backend that answers  [ ] not started
+### 3. A backend that answers  [ ] up next
 **Deliverable:** a local Express server you can hit in the browser and get a response (hello, or a hardcoded list of applications).
 **Concepts:** nodejs, express, routes-endpoints, http-request-response, multiple-servers
 
