@@ -39,9 +39,16 @@ Tasks:
       **Parked:** the submitted object doesn't reach the list yet — that's section 6 (CRUD), which needs state lifted into App.
 - [x] 2.8 Commit — section deliverable reached — done 2026-08-02 (committed and pushed unprompted, efb3cd1 + b9f3cf7)
 
-### 3. A backend that answers  [ ] up next
+### 3. A backend that answers  [ ] in progress
 **Deliverable:** a local Express server you can hit in the browser and get a response (hello, or a hardcoded list of applications).
 **Concepts:** nodejs, express, routes-endpoints, http-request-response, multiple-servers
+
+Tasks:
+- [x] 3.1 Set up server/ as its own npm project and install Express — done 2026-08-02; npm init, "type": "module", express ^5.2.1 (65 packages), and a repo-root .gitignore that took untracked files from 598 to 4
+- [ ] 3.2 Write the smallest Express server that answers a request, and hit it in the browser
+- [ ] 3.3 Move the applications data to the server and serve it as JSON at /api/applications
+- [ ] 3.4 Auto-restart on save, and run both servers side by side
+- [ ] 3.5 Commit — section deliverable reached
 
 ### 4. Frontend talks to backend (the API)  [ ] not started
 **Deliverable:** the React app fetches the (still hardcoded) applications from the server and displays them — real data flowing across the wire.

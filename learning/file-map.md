@@ -14,7 +14,14 @@ Project root: `/home/samir/job-tracker` — everything below is relative to it.
 - .git/ — known (2026-07-31) — the repository itself: every commit ever made lives here. Hidden (leading dot). Never edit by hand; you change it only through git commands. Since task 2.3 it also stores the `origin` remote pointing at github.com/GH-Samir/Job-Tracker. → [[git-commit]] [[git-remotes]]
 
 Not in the repo, but the project depends on it: `~/.ssh/id_ed25519` (private, never leaves this machine) and `~/.ssh/id_ed25519.pub` (public half, on GitHub). → [[public-key-auth]]
-- client/ — known (2026-07-31) — the React frontend: one of the two separate programs this project runs. Its own packages, own start command, own future deployment. The backend will live beside it in server/. → [[project-structure]]
+- .gitignore — known (2026-08-02) — repo-root ignore list, currently just `node_modules`. A .gitignore covers its own directory and everything below, so this one entry protects client/, server/, and anything added later. client/.gitignore still exists for Vite-specific entries (dist, logs, editor folders). → [[gitignore]]
+- client/ — known (2026-07-31) — the React frontend: one of the two separate programs this project runs. Its own packages, own start command, own future deployment. → [[project-structure]]
+- server/ — known (2026-08-02) — the Express backend: the second program. Its own package.json and node_modules because it's deployed separately (Render) from the client (Vercel). → [[project-structure]] [[nodejs]]
+
+## /server — the Express backend
+- package.json — known (2026-08-02) — the server's own recipe. Lists express, and carries `"type": "module"` so Node accepts `import`/`export` instead of `require()`. → [[npm-packages]] [[esm-vs-commonjs]]
+- package-lock.json — known (2026-08-02) — exact versions of all 65 installed packages. → [[npm-packages]] [[semantic-versioning]]
+- node_modules/ — generated (2026-08-02) — 65 downloaded packages (Express and its dependency tree). Machine-made, never edit, rebuildable with `npm install`. Ignored via the root .gitignore. → [[npm-packages]] [[gitignore]]
 
 ## /client — the React app (scaffolded by Vite, task 1.2)
 - package.json — known (2026-07-31) — the recipe: which packages this app needs. `dependencies` ship to the browser (react, react-dom); `devDependencies` are build-time tools only. You edit this. → [[npm-packages]]

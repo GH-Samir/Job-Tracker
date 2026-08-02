@@ -53,11 +53,11 @@
 - evidence: Ran git init/add/commit unaided. Correctly named the "untracked files" heading before seeing it. Predicted the staged heading as "tracked files" (actual: "Changes to be committed") — corrected toward staging being a queue of changes, not a file status. Correctly predicted `git log --oneline` would print one line beginning with the commit hash. Task 1.3: committed the scaffold unprompted between sessions (311ba79 "install react and its dependancies and vite"); ran `git diff` on a deliberate breakage and read it correctly ("changed the id"); used `git restore` to undo it. Shown the -/+ diff convention. Task 1.5: reviewed with `git diff --staged` before committing and wrote an imperative, diff-describing message unaided (81d1252). Five commits made, all by their own hand.
 
 ## gitignore
-- status: practicing
+- status: understood
 - depends-on: git-commit
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Correctly said node_modules should not be committed, but reasoned "not all the packages are needed" — corrected toward the real rule: they're all needed, but rebuildable from package.json, and git tracks what you author, not what a machine generates. Then correctly described .gitignore's behaviour ("it will list all of them except the ones in gitignore") and ballparked the surviving file count at 9 (actual 16) by reasoning from what Vite generates. Task 2.3, unaided synthesis after the first push came to 61 KiB: "most of it are the packages, which are in gitignore, i would get a working app back from github since i have package-lock.json which tells me which packages npm has to install." That's the whole rebuildability argument in their own words.
+- evidence: Correctly said node_modules should not be committed, but reasoned "not all the packages are needed" — corrected toward the real rule: they're all needed, but rebuildable from package.json, and git tracks what you author, not what a machine generates. Then correctly described .gitignore's behaviour ("it will list all of them except the ones in gitignore") and ballparked the surviving file count at 9 (actual 16) by reasoning from what Vite generates. Task 2.3, unaided synthesis after the first push came to 61 KiB: "most of it are the packages, which are in gitignore, i would get a working app back from github since i have package-lock.json which tells me which packages npm has to install." That's the whole rebuildability argument in their own words. **Task 3.1 — upgraded to understood.** Installing Express left 598 untracked files; asked why `.gitignore` wasn't protecting `server/`, answered unprompted: "lives in client so it doesn't affect server since it's in a different directory". Chose the root-level fix and got the count to 4. Two independent, unprompted, correct explanations on separate days — the rebuildability *why* and the directory-scoping *how*.
 
 ## local-environment
 - status: practicing
@@ -120,7 +120,7 @@
 - depends-on: nodejs
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Read package.json unaided and explained the 2-vs-105 gap in own words: "i might only use 2 in the program (react and react-dom) but they are dependant on all 105". Task 1.5 tour check passed unaided: "package-lock is like the recipe, the exact versions of the packages needed, node modules are the packages themselves, which do not need to be shipped hence why theyre in the gitignore" — one nudge on wording (node_modules IS needed to run; it's just rebuildable, so not worth storing in git).
+- evidence: Read package.json unaided and explained the 2-vs-105 gap in own words: "i might only use 2 in the program (react and react-dom) but they are dependant on all 105". Task 1.5 tour check passed unaided: "package-lock is like the recipe, the exact versions of the packages needed, node modules are the packages themselves, which do not need to be shipped hence why theyre in the gitignore" — one nudge on wording (node_modules IS needed to run; it's just rebuildable, so not worth storing in git). **Task 3.1: predicted `npm install express` would create `public/` and `src/`** — conflating `npm create vite` (a scaffolder that generates project files) with `npm install` (which only downloads packages). Also predicted "a handful" of packages; actual 65, the same one-asks-for-many tree as React's 105.
 
 ## linting
 - status: introduced
@@ -130,11 +130,25 @@
 - evidence: Hit the scaffolder's oxlint/ESLint prompt and stopped to ask rather than guessing. Told what a linter is (reads code without running it, flags mistakes); chose ESLint on the "boring, widely-used choice" rationale. Has not yet run or configured it.
 
 ## project-structure
-- status: introduced
+- status: practicing
 - depends-on: none
 - introduced: 2026-07-31
-- last-reviewed: 2026-07-31
-- evidence: Asked why a backend needs its own folder, answered "it'll be easier to differentiate between backend and frontend" — right instinct, partial reason; extended toward the real one (two separately-run, separately-deployed programs with their own packages and start commands). Locked in client/ + server/ layout.
+- last-reviewed: 2026-08-02
+- evidence: Asked why a backend needs its own folder (task 2.2), answered "it'll be easier to differentiate between backend and frontend" — right instinct, partial reason; extended toward two separately-run, separately-deployed programs. **Task 3.1 retrieval, two days later and much sharper:** said unprompted that server/ "needs own package.json and package lock since the packages it will use will be different to the ones that frontend uses" — including the lock file without being asked. Shown the deployment consequence (Render installs from server/, Vercel from client/).
+
+## semantic-versioning
+- status: introduced
+- depends-on: npm-packages
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 3.1: shown `"express": "^5.2.1"` — the caret meaning "any 5.x, never 6.x" — and major.minor.patch, where major signals a breaking change. Completes the package.json (accepted range) vs package-lock.json (exact installed version) picture. Told, not yet checked.
+
+## esm-vs-commonjs
+- status: introduced
+- depends-on: imports-exports, nodejs
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 3.1: shown Node's two module systems — `require()`/`module.exports` (CommonJS, still Node's default) vs `import`/`export` (ESM), and that `"type": "module"` in package.json switches Node to ESM. Added the field themselves with correct comma placement. Rationale given: one syntax across client and server rather than switching per folder; cost named (most Node tutorials online are still CommonJS, so translation will be needed). Has not yet written server-side code in either style.
 
 ## react-component
 - status: practicing
