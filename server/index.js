@@ -38,7 +38,7 @@ const applications = [
   ]
 
 app.get('/', (req, res) => {
-  res.send("Hello man")
+  res.send("Hello man yeah")
 })
 
 app.get('/api/applications', (req, res) => {
