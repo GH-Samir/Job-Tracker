@@ -45,7 +45,7 @@ Tasks:
 
 Tasks:
 - [x] 3.1 Set up server/ as its own npm project and install Express — done 2026-08-02; npm init, "type": "module", express ^5.2.1 (65 packages), and a repo-root .gitignore that took untracked files from 598 to 4
-- [ ] 3.2 Write the smallest Express server that answers a request, and hit it in the browser
+- [x] 3.2 Write the smallest Express server that answers a request, and hit it in the browser — done 2026-08-02; GET / on port 3000, verified 200 and 404 in the Network tab, running alongside Vite
 - [ ] 3.3 Move the applications data to the server and serve it as JSON at /api/applications
 - [ ] 3.4 Auto-restart on save, and run both servers side by side
 - [ ] 3.5 Commit — section deliverable reached

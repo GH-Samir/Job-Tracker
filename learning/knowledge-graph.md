@@ -309,35 +309,35 @@
 - depends-on: why-node-express
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Told what Node is (runs JavaScript outside the browser) and that npm ships with it. Confirmed installed: Node v22.22.2, npm v10.9.7. Not yet used directly — full treatment due in section 3.
+- evidence: Told what Node is (runs JavaScript outside the browser) and that npm ships with it. **Task 3.2: ran `node index.js` directly** — first time invoking Node on their own file rather than through a tool. Grasped that a server process holds the terminal until Ctrl+C, and that this is why two terminals are needed. Also met exit codes (`$?`, 0 = success) though the demo was inconclusive.
 
 ## express
-- status: seed
+- status: practicing
 - depends-on: nodejs
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 3.2: wrote the route handler body (`res.send`) and the `app.listen(3000, callback)` from a described shape, both correct first time. Shown the three pieces — `express()` builds the app, `app.get` registers a route, `app.listen` takes a port and waits. Noted that the route callback is the same shape as their `onChange` handlers: a function handed over to be called later.
 
 ## routes-endpoints
-- status: seed
+- status: practicing
 - depends-on: express
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 3.2: **correctly predicted** that visiting an undefined path would give "cannot get /applications" before trying it. Confirmed 404 vs 200 in the DevTools Network tab unprompted once pointed at the Status column. Shown routing as a (method, path) → handler table, and the 2xx/4xx/5xx families with the 4xx-is-your-fault / 5xx-is-the-server's split.
 
 ## http-request-response
-- status: seed
+- status: practicing
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 3.2: described the exchange in own words before any vocabulary was supplied — "browser makes a request to vite, vite provides and sends to browser". Given the terms client/request/server/response, and the asymmetry that a server never speaks first. Read real status codes out of the Network tab (200 and 404).
 
 ## multiple-servers
-- status: seed
+- status: practicing
 - depends-on: express, vite
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 3.2: **predicted the port clash correctly** ("port is already in use, wont start") before trying to run a second copy. Worked out on their own why the terminal stopped responding — "the terminal is busy running the server, similar to vite on the frontend" — connecting it to Vite unprompted. Shown: a port is a numbered door, one program per door, and a server is a program that never finishes. Ran Vite on 5173 and Express on 3000 simultaneously. **Loose end:** the deliberate port-clash didn't produce the expected `EADDRINUSE` error — it exited silently and the cause is unknown; we chose not to chase it.
 
 ## api
 - status: seed
