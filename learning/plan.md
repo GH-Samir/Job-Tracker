@@ -51,9 +51,16 @@ Tasks:
 - [x] 3.4 Auto-restart on save, and run both servers side by side — done 2026-08-02; `node --watch` via npm run dev, plus a start script for production. Vite on 5173 and Express on 3000, both live.
 - [x] 3.5 Commit — section deliverable reached — done 2026-08-02 (committed and pushed unprompted, a70465b + f0e8806)
 
-### 4. Frontend talks to backend (the API)  [ ] up next
+### 4. Frontend talks to backend (the API)  [ ] in progress
 **Deliverable:** the React app fetches the (still hardcoded) applications from the server and displays them — real data flowing across the wire.
 **Concepts:** api, fetch, json, async-await, get-request, cors
+
+Tasks:
+- [x] 4.1 Meet fetch and async/await in the browser console — and hit the CORS wall — done 2026-08-02; no files changed, console work only
+- [ ] 4.2 Let the server say yes: enable CORS on the backend
+- [ ] 4.3 Fetch on page load with useEffect, hold the result in state, and delete the client's hardcoded array (pays off the section-3 debt)
+- [ ] 4.4 Handle what the user sees while it loads, and when it fails
+- [ ] 4.5 Commit — section deliverable reached
 
 ### 5. Remembering things (the database)  [ ] not started
 **Deliverable:** applications you add persist — close everything, reopen, they're still there (stored in SQLite).

@@ -347,11 +347,11 @@
 - evidence: —
 
 ## fetch
-- status: seed
+- status: practicing
 - depends-on: api, async-await
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 4.1: ran `fetch` from the browser console for the first time. Shown the two-await pattern and why it exists — the first await resolves when *headers* arrive, the second (`response.json()`) reads and parses the *body*, so `response` is the envelope and `.json()` opens it. Predicted the call would succeed; it was blocked by CORS instead (see [[cors]]). Has not yet written fetch inside application code — that's 4.3.
 
 ## json
 - status: practicing
@@ -361,11 +361,11 @@
 - evidence: Task 3.3: asked whether a server could send a JavaScript array over a network, answered "i don't think so, it'd have to be a package of some sort" — right instinct, no vocabulary. Given serialization, JSON's three rules (double-quoted keys, no trailing commas, data only), and `JSON.stringify` / `JSON.parse`. **Wrote `res.json(JSON.stringify(applications))` — serialized twice**, and identified the symptom themselves from the browser ("long piece of text") before the cause was explained. Then saw the raw wire format via curl and confirmed the JSON rules in real output. Has not yet written `JSON.parse` or handled JSON on the receiving side — section 4.
 
 ## async-await
-- status: seed
+- status: practicing
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 4.1: **articulated the motivation before being told** — asked what the browser should do during a 300ms request on a single thread, answered "it should be doing other things while waiting, keep responsive to user interactions". That's the whole reason async exists. Then shown Promises (a claim on a future value, coffee-shop-buzzer analogy), `await` as suspending the *function* rather than the thread, and `async` as the permission slip. **Only ran supplied lines using top-level await in the console — has not yet written an `async function` or handled a rejected promise.**
 
 ## get-request
 - status: seed
@@ -375,11 +375,11 @@
 - evidence: —
 
 ## cors
-- status: seed
+- status: practicing
 - depends-on: api, multiple-servers
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 4.1: hit the wall deliberately by fetching localhost:3000 from a page on localhost:5173. Read the error and located the policy **on the port/server** ("theres some cors policy on the port") — corrected to the key fact: **the rule lives in the browser**; the server answered normally and the browser discarded the response before JavaScript could see it. That's why curl and the address bar both worked. Shown: origin = scheme + host + port (so ports count), the bank.com/evil.com cookie scenario, and that the browser enforces while the server grants the exception via `Access-Control-Allow-Origin`. **Passed the check that matters:** answered unprompted that CORS protects *users*, not the server — and was told plainly that CORS is not access control, since any non-browser client ignores it.
 
 ## sql
 - status: seed
