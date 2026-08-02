@@ -51,7 +51,7 @@ Tasks:
 - [x] 3.4 Auto-restart on save, and run both servers side by side — done 2026-08-02; `node --watch` via npm run dev, plus a start script for production. Vite on 5173 and Express on 3000, both live.
 - [x] 3.5 Commit — section deliverable reached — done 2026-08-02 (committed and pushed unprompted, a70465b + f0e8806)
 
-### 4. Frontend talks to backend (the API)  [ ] in progress
+### 4. Frontend talks to backend (the API)  [x] COMPLETE 2026-08-02
 **Deliverable:** the React app fetches the (still hardcoded) applications from the server and displays them — real data flowing across the wire.
 **Concepts:** api, fetch, json, async-await, get-request, cors
 
@@ -63,9 +63,9 @@ Tasks:
 - [x] 4.3 Fetch on page load with useEffect, hold the result in state, and delete the client's hardcoded array — done 2026-08-02. **Section-3 duplication debt PAID** — the applications array now exists only in server/index.js.
 - [x] 4.4 Handle what the user sees while it loads, and when it fails — done 2026-08-02; try/catch/finally, response.ok guard, loading/error/empty states with conditional rendering, .error styling
       **Parked (polish):** the error text shown is the raw browser message ("Failed to fetch") rather than something written for a human.
-- [ ] 4.5 Commit — section deliverable reached
+- [x] 4.5 Commit — section deliverable reached — done 2026-08-02 (committed and pushed unprompted, 67d0fc1 + 148d3e0)
 
-### 5. Remembering things (the database)  [ ] not started
+### 5. Remembering things (the database)  [ ] up next
 **Deliverable:** applications you add persist — close everything, reopen, they're still there (stored in SQLite).
 **Concepts:** sql, tables-schema, sqlite, sql-queries, backend-db-connection, environment-variables
 
