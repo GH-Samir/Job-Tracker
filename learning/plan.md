@@ -60,7 +60,7 @@ Tasks:
 - [x] 4.2 Let the server say yes: enable CORS on the backend — done 2026-08-02; hand-written middleware setting Access-Control-Allow-Origin, verified with curl
       **Parked to section 6:** preflight OPTIONS is unhandled, so a JSON POST will fail. The `cors` npm package is the one-line fix — install it when it bites.
       **Parked to section 8:** the allowed origin is hardcoded to localhost:5173; production needs the Vercel URL via an environment variable.
-- [ ] 4.3 Fetch on page load with useEffect, hold the result in state, and delete the client's hardcoded array (pays off the section-3 debt)
+- [x] 4.3 Fetch on page load with useEffect, hold the result in state, and delete the client's hardcoded array — done 2026-08-02. **Section-3 duplication debt PAID** — the applications array now exists only in server/index.js.
 - [ ] 4.4 Handle what the user sees while it loads, and when it fails
 - [ ] 4.5 Commit — section deliverable reached
 

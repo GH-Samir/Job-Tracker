@@ -340,18 +340,25 @@
 - evidence: Task 3.2: **predicted the port clash correctly** ("port is already in use, wont start") before trying to run a second copy. Worked out on their own why the terminal stopped responding — "the terminal is busy running the server, similar to vite on the frontend" — connecting it to Vite unprompted. Shown: a port is a numbered door, one program per door, and a server is a program that never finishes. Ran Vite on 5173 and Express on 3000 simultaneously. **Loose end:** the deliberate port-clash didn't produce the expected `EADDRINUSE` error — it exited silently and the cause is unknown; we chose not to chase it. **Task 3.4 revealed a real gap in the two-programs model:** suggested the server could be added to main.jsx "so it renders the server too", and when asked what would happen if server code were imported into the client, answered "it would lack dependencies". Corrected to the strong form — **a browser cannot be a server**: Express asks the OS for a listening port, and a browser tab has no such power by design, so it can only ever be a client that asks. Both servers then run side by side on 5173 and 3000. **Task 3.5 re-check: PASSED with one redirect.** Asked why App.jsx can't import the server's array, first answered "the frontend and backend are separate, and need a special connection" — restating the rule, not the reason. Redirected with "where does each one actually execute?" and got it cleanly: **"app.jsx executes in browser, server executes on server with node."** That's the load-bearing idea. Completed for them: two processes, two memories; `import` only works between files that run in the same place; HTTP is the only channel — and that's what makes the two independently deployable. Held at practicing (same day it was introduced); re-check after a real gap.
 
 ## api
-- status: seed
+- status: practicing
 - depends-on: http-request-response, routes-endpoints
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 4.3: the React app now consumes the Express API instead of holding its own copy. **The closing test was the strongest evidence of the session** — asked to predict what would happen if a company name changed on the server and only the browser reloaded, predicted no change ("client build has not restarted"), tested it, saw it change, and explained the correction unprompted: *"the client gets the data from the server now, so it does not need to restart since the change was made in the server, not client."* The client holds the instruction to ask, not the answer.
+
+## useeffect
+- status: practicing
+- depends-on: react-state
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 4.3: **wrote the whole effect block correctly** — async function defined inside and called, both awaits, `setApplications(data)`, empty dependency array. Two confusions along the way: wrote `useEffect([])` where `useState([])` belonged, then asked whether useState would cause the infinite loop — the two hooks were being treated as alternatives. Separated: useState is *where the data lives*, useEffect is *when the fetch runs*; the loop came from the fetch being in the render body, not from state. Could not explain why `[]` means "once" — supplied: React compares the array item by item between renders, and an empty array has nothing that could ever differ. Shown: rendering must be pure, side effects are what useEffect is for, and an effect callback can't be async because React expects a cleanup function or nothing. **Has not written a cleanup function or a non-empty dependency array.**
 
 ## fetch
 - status: practicing
 - depends-on: api, async-await
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 4.1: ran `fetch` from the browser console for the first time. Shown the two-await pattern and why it exists — the first await resolves when *headers* arrive, the second (`response.json()`) reads and parses the *body*, so `response` is the envelope and `.json()` opens it. Predicted the call would succeed; it was blocked by CORS instead (see [[cors]]). Has not yet written fetch inside application code — that's 4.3.
+- evidence: Task 4.1: ran `fetch` from the browser console for the first time. Shown the two-await pattern and why it exists — the first await resolves when *headers* arrive, the second (`response.json()`) reads and parses the *body*, so `response` is the envelope and `.json()` opens it. Predicted the call would succeed; it was blocked by CORS instead (see [[cors]]). **Task 4.3: wrote fetch inside application code** — both awaits correct, result handed to `setApplications`, verified in the Network tab. Also spelled `reponse` consistently, which worked but was corrected on readability grounds.
 
 ## json
 - status: practicing
@@ -365,7 +372,7 @@
 - depends-on: none
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 4.1: **articulated the motivation before being told** — asked what the browser should do during a 300ms request on a single thread, answered "it should be doing other things while waiting, keep responsive to user interactions". That's the whole reason async exists. Then shown Promises (a claim on a future value, coffee-shop-buzzer analogy), `await` as suspending the *function* rather than the thread, and `async` as the permission slip. **Only ran supplied lines using top-level await in the console — has not yet written an `async function` or handled a rejected promise.**
+- evidence: Task 4.1: **articulated the motivation before being told** — asked what the browser should do during a 300ms request on a single thread, answered "it should be doing other things while waiting, keep responsive to user interactions". That's the whole reason async exists. Then shown Promises (a claim on a future value, coffee-shop-buzzer analogy), `await` as suspending the *function* rather than the thread, and `async` as the permission slip. **Task 4.3: wrote their first `async function`** (`loadApplications` inside the effect) and called it. **Still has not handled a rejected promise** — no try/catch yet, which is exactly what task 4.4 is for.
 
 ## get-request
 - status: seed
