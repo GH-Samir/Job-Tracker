@@ -260,7 +260,7 @@
 - depends-on: why-javascript
 - introduced: 2026-07-31
 - last-reviewed: 2026-08-01
-- evidence: Task 2.5: needed for the dynamic `className`. Struggled — first attempt had no backticks, wrong casing method, attribute in the wrong place, and dropped the visible content; the assembled line was ultimately handed over rather than derived. Did afterwards explain correctly why one copy of the status is lowercased and one isn't ("the one we're lowercasing may have capital letters"), sharpened to: one is read by CSS (case-sensitive), one by a person. Has not yet written a template literal unprompted.
+- evidence: Task 2.5: needed for the dynamic `className`. Struggled — first attempt had no backticks, wrong casing method, attribute in the wrong place, and dropped the visible content; the assembled line was ultimately handed over rather than derived. Did afterwards explain correctly why one copy of the status is lowercased and one isn't ("the one we're lowercasing may have capital letters"), sharpened to: one is read by CSS (case-sensitive), one by a person. **Task 4.4: failed a third time.** Wrote `"Server responded ${response.status}"` with double quotes, then `'...'` with single quotes, before getting backticks — needed to be told which physical key (left of `1`, above Tab). Separately wrote a backtick string inside JSX *children*, where it renders as literal characters and `{}` is the right tool. **The rule to over-learn: `${}` only means anything inside backticks; inside JSX text you use `{}` instead.**
 
 ## accessibility-contrast
 - status: introduced
@@ -351,7 +351,7 @@
 - depends-on: react-state
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 4.3: **wrote the whole effect block correctly** — async function defined inside and called, both awaits, `setApplications(data)`, empty dependency array. Two confusions along the way: wrote `useEffect([])` where `useState([])` belonged, then asked whether useState would cause the infinite loop — the two hooks were being treated as alternatives. Separated: useState is *where the data lives*, useEffect is *when the fetch runs*; the loop came from the fetch being in the render body, not from state. Could not explain why `[]` means "once" — supplied: React compares the array item by item between renders, and an empty array has nothing that could ever differ. Shown: rendering must be pure, side effects are what useEffect is for, and an effect callback can't be async because React expects a cleanup function or nothing. **Has not written a cleanup function or a non-empty dependency array.**
+- evidence: Task 4.3: **wrote the whole effect block correctly** — async function defined inside and called, both awaits, `setApplications(data)`, empty dependency array. Two confusions along the way: wrote `useEffect([])` where `useState([])` belonged, then asked whether useState would cause the infinite loop — the two hooks were being treated as alternatives. Separated: useState is *where the data lives*, useEffect is *when the fetch runs*; the loop came from the fetch being in the render body, not from state. Could not explain why `[]` means "once" — supplied: React compares the array item by item between renders, and an empty array has nothing that could ever differ. Shown: rendering must be pure, side effects are what useEffect is for, and an effect callback can't be async because React expects a cleanup function or nothing. **Has not written a cleanup function or a non-empty dependency array.** Task 4.4: extended the same effect with loading and error state — three pieces of state now driven by one effect.
 
 ## fetch
 - status: practicing
@@ -372,7 +372,7 @@
 - depends-on: none
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 4.1: **articulated the motivation before being told** — asked what the browser should do during a 300ms request on a single thread, answered "it should be doing other things while waiting, keep responsive to user interactions". That's the whole reason async exists. Then shown Promises (a claim on a future value, coffee-shop-buzzer analogy), `await` as suspending the *function* rather than the thread, and `async` as the permission slip. **Task 4.3: wrote their first `async function`** (`loadApplications` inside the effect) and called it. **Still has not handled a rejected promise** — no try/catch yet, which is exactly what task 4.4 is for.
+- evidence: Task 4.1: **articulated the motivation before being told** — asked what the browser should do during a 300ms request on a single thread, answered "it should be doing other things while waiting, keep responsive to user interactions". That's the whole reason async exists. Then shown Promises (a claim on a future value, coffee-shop-buzzer analogy), `await` as suspending the *function* rather than the thread, and `async` as the permission slip. **Task 4.3: wrote their first `async function`** (`loadApplications` inside the effect) and called it. **Task 4.4: handled a rejected promise** — try/catch around `await`, with the point made that a rejected promise throws exactly like a synchronous error, which is much of why async/await beats `.then()` chains.
 
 ## get-request
 - status: seed
@@ -459,11 +459,18 @@
 - evidence: —
 
 ## error-handling
-- status: seed
+- status: practicing
 - depends-on: http-request-response
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 4.4: wrote try/catch/finally around the fetch, with `finally` clearing the loading flag either way. **Predicted wrongly that a 404 would throw** — corrected to the key fact that `fetch` only rejects when there was no conversation at all (unreachable, DNS, CORS); a 404 is a successful conversation with a disappointing answer, so `response.ok` must be checked by hand. First attempt wrote `if (response.ok) { setApplications(data) }` — a silent no-op on failure, i.e. the exact bug the task exists to remove; flipped to the `if (!response.ok) throw` guard. Also put the ok-check *after* `response.json()`, which would surface "Unexpected token '<'" instead of the real status. Second attempt called `setApplications(err.message)` in the catch — would have put a string where an array was expected and crashed `.map()`.
+
+## conditional-rendering
+- status: practicing
+- depends-on: jsx
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 4.4: wrote `{loading && <p>Loading...</p>}` correctly first time from one example, and then the three-condition version for the empty state. **Wrote a raw `if (...) { ... }` block inside JSX** for the third case — corrected with the load-bearing idea: **JSX children must be expressions (things with a value), not statements**, which is *why* `&&` is used instead of `if`. Shown the falsy-zero trap (`{count && ...}` renders a literal 0). Has not yet used a ternary or an early return for the same job.
 
 ## automated-testing
 - status: seed
