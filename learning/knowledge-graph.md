@@ -57,7 +57,7 @@
 - depends-on: git-commit
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Correctly said node_modules should not be committed, but reasoned "not all the packages are needed" — corrected toward the real rule: they're all needed, but rebuildable from package.json, and git tracks what you author, not what a machine generates. Then correctly described .gitignore's behaviour ("it will list all of them except the ones in gitignore") and ballparked the surviving file count at 9 (actual 16) by reasoning from what Vite generates. Task 2.3, unaided synthesis after the first push came to 61 KiB: "most of it are the packages, which are in gitignore, i would get a working app back from github since i have package-lock.json which tells me which packages npm has to install." That's the whole rebuildability argument in their own words. **Task 3.1 — upgraded to understood.** Installing Express left 598 untracked files; asked why `.gitignore` wasn't protecting `server/`, answered unprompted: "lives in client so it doesn't affect server since it's in a different directory". Chose the root-level fix and got the count to 4. Two independent, unprompted, correct explanations on separate days — the rebuildability *why* and the directory-scoping *how*.
+- evidence: Correctly said node_modules should not be committed, but reasoned "not all the packages are needed" — corrected toward the real rule: they're all needed, but rebuildable from package.json, and git tracks what you author, not what a machine generates. Then correctly described .gitignore's behaviour ("it will list all of them except the ones in gitignore") and ballparked the surviving file count at 9 (actual 16) by reasoning from what Vite generates. Task 2.3, unaided synthesis after the first push came to 61 KiB: "most of it are the packages, which are in gitignore, i would get a working app back from github since i have package-lock.json which tells me which packages npm has to install." That's the whole rebuildability argument in their own words. **Task 3.1 — upgraded to understood.** Installing Express left 598 untracked files; asked why `.gitignore` wasn't protecting `server/`, answered unprompted: "lives in client so it doesn't affect server since it's in a different directory". Chose the root-level fix and got the count to 4. Two independent, unprompted, correct explanations on separate days — the rebuildability *why* and the directory-scoping *how*. **Task 5.1 — transfer to a new case, unaided:** asked whether `job-tracker.db` should be committed, answered no with a sharp analogy — *"that's my database, not anyone else's. db.js can be shared since that contains instructions on how to construct the database, similar to package lock."* Recipe versus data. Extended for them: unlike node_modules the .db is **not** rebuildable, so git is not backing it up. Also met `git check-ignore -v` for finding which rule ignores a file.
 
 ## local-environment
 - status: practicing
@@ -396,11 +396,11 @@
 - evidence: Task 4.2: wrote their first `app.use((req, res, next) => {...})` from a described shape. Shown: middleware runs for every request regardless of method or path; the chain either responds or calls `next()`; **forgetting `next()` hangs the request with no error at all**; and registration order matters, so middleware must sit above the routes it affects. Has not yet written middleware that inspects the request or short-circuits the chain.
 
 ## sql
-- status: seed
+- status: practicing
 - depends-on: why-relational-database
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 5.1: wrote their first SQL — a CREATE TABLE statement, correct on the first attempt. Shown: SQL is a separate language living inside JavaScript strings, `--` is its comment marker, `IF NOT EXISTS` makes the statement safe to re-run on every server start, and `INTEGER PRIMARY KEY` makes SQLite generate ids automatically (replacing the hand-numbered ids from task 2.4). Has not yet written SELECT, INSERT, UPDATE or DELETE.
 
 ## tables-schema
 - status: seed
@@ -410,11 +410,18 @@
 - evidence: —
 
 ## sqlite
-- status: seed
+- status: practicing
 - depends-on: sql
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 5.1: chose between `node:sqlite` (built in, but flagged experimental on their Node 22.23) and `better-sqlite3`; went with the latter on the boring-and-widely-used principle. **Correctly predicted it would add ~2 packages** (vs Express's 65) — a thin binding, not a framework. Shown: it's a native module, so a prebuilt binary was downloaded rather than compiled; and that its synchronous API is fine here because a local file read has no network wait worth freeing the thread for. Created `server/db.js`, ran it, and watched `job-tracker.db` appear.
+
+## tables-schema
+- status: practicing
+- depends-on: why-relational-database
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 5.1: **wrote the whole CREATE TABLE correctly** — five columns, right types, NOT NULL where decided, `DEFAULT 'PENDING'`, nullable deadline, no trailing comma. Design question handled well: first said all five fields should be required, then reasoned to the right answer when given the rolling-deadline case ("i suppose that can be left empty then"). Shown: NOT NULL on a genuinely optional field forces people to invent data, and NULL meaning "unknown / not applicable" is itself information. Also shown: SQLite has no date type, so ISO text is what makes dates sort — the payoff for the format decision parked back in task 2.1.
 
 ## sql-queries
 - status: seed

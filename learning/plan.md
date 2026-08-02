@@ -65,9 +65,16 @@ Tasks:
       **Parked (polish):** the error text shown is the raw browser message ("Failed to fetch") rather than something written for a human.
 - [x] 4.5 Commit — section deliverable reached — done 2026-08-02 (committed and pushed unprompted, 67d0fc1 + 148d3e0)
 
-### 5. Remembering things (the database)  [ ] up next
+### 5. Remembering things (the database)  [ ] in progress
 **Deliverable:** applications you add persist — close everything, reopen, they're still there (stored in SQLite).
 **Concepts:** sql, tables-schema, sqlite, sql-queries, backend-db-connection, environment-variables
+
+Tasks:
+- [x] 5.1 Pick a SQLite library, install it, and design the applications table — done 2026-08-02; better-sqlite3 chosen over experimental node:sqlite, server/db.js written, job-tracker.db created and gitignored
+- [ ] 5.2 Create the table, seed the four applications, and read them back with SQL outside the app
+- [ ] 5.3 Make GET /api/applications read from the database instead of the hardcoded array
+- [ ] 5.4 Move the database path into an environment variable
+- [ ] 5.5 Commit — section deliverable reached
 
 ### 6. The full core loop (CRUD)  [ ] not started
 **Deliverable:** the complete MVP feature set working locally — add, list, edit, and delete applications, all persisting.
