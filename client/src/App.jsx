@@ -1,42 +1,21 @@
 import ApplicationCard from "./ApplicationCard"
 import ApplicationForm from "./ApplicationForm"
+import { useState, useEffect } from "react"
 
 function App() {
-  const applications = [
-    {
-      id: 0,
-      company: 'Anthropic',
-      role: 'Software Engineer Intern',
-      dateApplied: '2026-07-12',
-      status: 'PENDING',
-      deadline: '2026-07-17'
-    },
-    {
-      id: 1,
-      company: 'Microsoft',
-      role: 'Data Analyst',
-      dateApplied: '2026-05-02',
-      status: 'OFFER',
-      deadline: '2026-05-17'
-    },
-    {
-      id: 2,
-      company: 'Acturis',
-      role: 'Integrations Developer',
-      dateApplied: '2026-05-19',
-      status: 'REJECTED',
-      deadline: '2026-07-01'
-    },
-    {
-      id: 3,
-      company: 'Google',
-      role: 'Security consultant',
-      dateApplied: '2026-08-11',
-      status: 'PENDING',
-      deadline: '2026-09-24'
-    }
-  ]
+  
+  const [applications, setApplications] = useState([])
 
+  useEffect(() => {
+    async function loadApplications() {
+      const response = await fetch('http://localhost:3000/api/applications')
+      const data = await response.json()
+      setApplications(data)
+    }
+    loadApplications()
+  }, [])
+
+  
   return (
     <div className="app">
       <h1>Job Tracker</h1>
