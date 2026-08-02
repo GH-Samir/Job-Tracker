@@ -172,11 +172,11 @@
 - evidence: Task 2.1: first pass used h2/h3/h4/h5/h6 for the five fields, treating heading level as font size. Shown that h1–h6 declare a document outline that screen readers and search engines navigate, and that sizing is CSS's job. Then chose company alone as the heading — "company heading since its most unique" — and made the other four `<p>`. Reason given was uniqueness rather than "it's the card's title", but the call was right. Task 2.5: shown that two unlabelled dates on a card is a *markup* problem no CSS can fix, and proposed the fix themselves ("i'd just add the date label in the same string before the date"); refined to a `<span className="label">` so the label is stylable. Also met `className` (not `class`, a reserved word) and `htmlFor` (not `for`). Task 2.6: omitted the `<label>` on the role field and, when asked to compare it against the working company block, added it. Shown why label/input pairing matters — bigger tap target, and a screen reader announcing "Company, edit text" rather than a bare "edit text".
 
 ## iso-dates
-- status: introduced
+- status: practicing
 - depends-on: none
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Flagged in task 2.1 and parked: the hardcoded data uses '12/07/2026', ambiguous across locales and unsortable. Task 2.6 resolved it for *new* input — `<input type="date">` localises the display but always yields `YYYY-MM-DD`, which they saw for themselves in the submitted query string. **Open inconsistency to settle in 2.7:** the four hardcoded applications still use DD/MM/YYYY while the form now produces ISO, so the same field carries two formats. → [[sql]] [[tables-schema]]
+- evidence: **Task 2.7: converted all eight hardcoded dates to ISO** — got the unit order right first time (year-month-day), but used slashes (`2026/07/12`) and needed the hyphen convention pointed out. Both formats now agree with what `type="date"` emits. Display formatting (ISO → human-readable) deliberately parked. Flagged in task 2.1 and parked: the hardcoded data used '12/07/2026', ambiguous across locales and unsortable. Task 2.6 resolved it for *new* input — `<input type="date">` localises the display but always yields `YYYY-MM-DD`, which they saw for themselves in the submitted query string. **Open inconsistency to settle in 2.7:** the four hardcoded applications still use DD/MM/YYYY while the form now produces ISO, so the same field carries two formats. → [[sql]] [[tables-schema]]
 
 ## props
 - status: practicing
@@ -225,7 +225,7 @@
 - depends-on: jsx
 - introduced: 2026-07-31
 - last-reviewed: 2026-08-02
-- evidence: **Failed twice.** Task 2.4: wrote `key` as its own element (`<key = application.id>`). Task 2.5: wrote `<p> className={...}</p>`, attribute in the children slot because the `>` closed the tag early. Needed the anatomy spelled out and a side-by-side against a working line in their own file. **Task 2.6 review: PASSED** — asked cold to write a `<p>` with class `note` and text `Hello`, produced `<p className="note">...` with the attribute correctly placed. Two lesser slips in the same line: wrapped the text child in quotes and parens (`("Hello")`) and mistyped the closing tag (`</p/`). Held at practicing rather than understood because of those; one more clean recall earns the upgrade.
+- evidence: **Failed twice.** Task 2.4: wrote `key` as its own element (`<key = application.id>`). Task 2.5: wrote `<p> className={...}</p>`, attribute in the children slot because the `>` closed the tag early. Needed the anatomy spelled out and a side-by-side against a working line in their own file. **Task 2.6 review: PASSED** — asked cold to write a `<p>` with class `note` and text `Hello`, produced `<p className="note">...` with the attribute correctly placed (two lesser slips: `("Hello")` for the text child, and `</p/`). **Task 2.7: FAILED AGAIN — third occurrence.** Wrote `onsubmit={handleSubmit}` as a line between `<button>` and `</form>`, i.e. in the children slot, plus lowercase instead of camelCase. Note the pattern: retrieval succeeds when the anatomy *is* the question, and fails when attention is on a new concept (keys, dynamic classNames, event handlers). Given the explicit rule to apply mechanically: *anything given to an element goes between the tag name and the `>`; everything after the `>` is content the user sees.* **Do not upgrade until it survives at least one lesson where it isn't the focus.**
 
 ## html-forms
 - status: practicing
@@ -256,18 +256,39 @@
 - evidence: Task 2.5: chose `#FF0000` for labels and bright amber for the pending badge; shown that red carries meaning (error/urgency) and shouldn't be spent decoratively — **reached the same conclusion independently**, proposing status colour-coding as the better use of red. Needed three passes to land a readable amber (#FFBF00 → #FFA500 → #8a5300). Shown the WCAG thresholds (4.5:1 normal text, 3:1 large) and the DevTools colour-picker contrast readout; confirmed the ratio jumped when the colour changed. Concept met, not yet self-applied.
 
 ## react-state
-- status: seed
+- status: practicing
 - depends-on: react-component
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 2.7: wrote all five `useState` declarations unaided, including `useState('PENDING')` for the status field so the dropdown's default matched its state. **Asked to be told rather than attempting** the "why not just `let company = ''`" question — the two reasons (a component function re-runs and resets plain variables; assigning to one doesn't trigger a re-render) were supplied, not retrieved. Tied back to their own task-2.2 class question: a class instance would keep `this.company` naturally; function components have no instance, so state has to live outside the call. **Re-check the why.**
 
 ## controlled-inputs
-- status: seed
+- status: practicing
 - depends-on: react-state
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 2.7: wired all five fields with `value` + `onChange` after one worked example. **Correctly predicted** that removing `onChange` while keeping `value` would freeze the box — "it will not update according to the user keystrokes, and will remain as its default value" — which is the round trip understood. Needed help with `<select>`: was thrown by it having children rather than being self-closing. Shown: React as single source of truth, DOM merely displaying.
+
+## event-handlers
+- status: practicing
+- depends-on: react-state
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 2.7: used `onChange={(e) => setX(e.target.value)}` across five fields and wired `onSubmit={handleSubmit}`. Shown `e.preventDefault()` cancelling the browser default, and the `handleSubmit` vs `handleSubmit()` trap (pass the function, don't call it) — warned in advance, so not tested. Confirmed the result themselves: no reload, no URL change, object logged.
+
+## object-shorthand
+- status: introduced
+- depends-on: js-objects
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 2.7: shown that `{ company, role }` equals `{ company: company, role: role }`. Wrote the long form and left it that way after the shorthand was explained — **shown, not adopted**. Worth revisiting; it's ubiquitous in real code.
+
+## destructuring
+- status: introduced
+- depends-on: js-arrays
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 2.7: met array destructuring via `const [company, setCompany] = useState('')`, with the equivalence to `pair[0]`/`pair[1]` spelled out. Used it five times but always from the same template; hasn't destructured anything else, and hasn't met object destructuring (which is how props are usually written — deliberately still deferred).
 
 ## nodejs
 - status: introduced

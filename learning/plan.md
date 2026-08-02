@@ -34,7 +34,9 @@ Tasks:
 **Parked (your call, 2026-08-01):** statuses are three values for the MVP. Interview stages ("Applied → Interviewing") come later — extending costs one status value plus one CSS rule.
 - [x] 2.6 Add the "new application" form markup — visible, not yet working — done 2026-08-02; ApplicationForm component, labelled fields, status dropdown, date inputs, styled. Submitting still does the browser's default reload.
       **Carry into 2.7:** the hardcoded applications use DD/MM/YYYY but `type="date"` produces YYYY-MM-DD — one field, two formats. Settle it.
-- [ ] 2.7 Make the form's inputs controlled with React state
+- [x] 2.7 Make the form's inputs controlled with React state — done 2026-08-02; five controlled fields, onSubmit with preventDefault, submitted object logged to console. Hardcoded dates converted to ISO.
+      **Parked:** displaying ISO dates in a human-friendly form (cards currently show `2026-07-12`).
+      **Parked:** the submitted object doesn't reach the list yet — that's section 6 (CRUD), which needs state lifted into App.
 - [ ] 2.8 Commit — section deliverable reached
 
 ### 3. A backend that answers  [ ] not started
