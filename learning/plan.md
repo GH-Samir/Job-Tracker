@@ -48,7 +48,7 @@ Tasks:
 - [x] 3.2 Write the smallest Express server that answers a request, and hit it in the browser — done 2026-08-02; GET / on port 3000, verified 200 and 404 in the Network tab, running alongside Vite
 - [x] 3.3 Move the applications data to the server and serve it as JSON at /api/applications — done 2026-08-02; verified in the browser and with curl -i
       **Known debt (deliberate, ends in section 4):** the applications array now exists in BOTH server/index.js and client/src/App.jsx. Copied rather than moved because the client can't fetch yet and cutting it would crash the app. Delete the client's copy the moment fetch works.
-- [ ] 3.4 Auto-restart on save, and run both servers side by side
+- [x] 3.4 Auto-restart on save, and run both servers side by side — done 2026-08-02; `node --watch` via npm run dev, plus a start script for production. Vite on 5173 and Express on 3000, both live.
 - [ ] 3.5 Commit — section deliverable reached
 
 ### 4. Frontend talks to backend (the API)  [ ] not started

@@ -99,7 +99,7 @@
 - depends-on: npm-packages
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Asked how npm resolves the word `dev`; first answered "it looks in main.jsx and follows down the chain" — conflated the browser runtime chain with npm's command lookup. Redirected to package.json's `scripts` section and correctly read off `vite`. Shown the dev/build/preview/lint convention. Worth re-checking.
+- evidence: Task 1.3: asked how npm resolves the word `dev`; answered "it looks in main.jsx and follows down the chain" — conflated the browser runtime chain with npm's command lookup. Redirected to package.json's `scripts` and correctly read off `vite`. **Task 3.4 re-check: FAILED, same wrong answer** — asked where to add a `dev` script for the server, said "add server to the main.jsx, so it renders the server too". Re-taught, and the deeper misconception underneath it addressed (see [[multiple-servers]]). Then wrote `"dev": "node --watch index.js"` and `"start": "node index.js"` into server/package.json correctly. Also met: `start` and `test` are the two scripts npm lets you run without `run`. **Still weak — recall has now failed twice across three days. Re-check again.**
 
 ## imports-exports
 - status: practicing
@@ -309,7 +309,7 @@
 - depends-on: why-node-express
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Told what Node is (runs JavaScript outside the browser) and that npm ships with it. **Task 3.2: ran `node index.js` directly** — first time invoking Node on their own file rather than through a tool. Grasped that a server process holds the terminal until Ctrl+C, and that this is why two terminals are needed. Also met exit codes (`$?`, 0 = success) though the demo was inconclusive.
+- evidence: Told what Node is (runs JavaScript outside the browser) and that npm ships with it. **Task 3.2: ran `node index.js` directly** — first time invoking Node on their own file rather than through a tool. Grasped that a server process holds the terminal until Ctrl+C, and that this is why two terminals are needed. Also met exit codes (`$?`, 0 = success) though the demo was inconclusive. **Task 3.4:** met `node --watch` (built in since Node 18 — nodemon named as the package this replaces, and why it's no longer needed). Read the restart output themselves ("says restarting 'index.js' then listening on http") and was shown that this is a **kill-and-restart, not a hot swap** — so anything held in memory dies with the process. That's the concrete reason section 5 needs a database, and the contrast with Vite's hot module replacement, which preserves React state.
 
 ## express
 - status: practicing
@@ -337,7 +337,7 @@
 - depends-on: express, vite
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 3.2: **predicted the port clash correctly** ("port is already in use, wont start") before trying to run a second copy. Worked out on their own why the terminal stopped responding — "the terminal is busy running the server, similar to vite on the frontend" — connecting it to Vite unprompted. Shown: a port is a numbered door, one program per door, and a server is a program that never finishes. Ran Vite on 5173 and Express on 3000 simultaneously. **Loose end:** the deliberate port-clash didn't produce the expected `EADDRINUSE` error — it exited silently and the cause is unknown; we chose not to chase it.
+- evidence: Task 3.2: **predicted the port clash correctly** ("port is already in use, wont start") before trying to run a second copy. Worked out on their own why the terminal stopped responding — "the terminal is busy running the server, similar to vite on the frontend" — connecting it to Vite unprompted. Shown: a port is a numbered door, one program per door, and a server is a program that never finishes. Ran Vite on 5173 and Express on 3000 simultaneously. **Loose end:** the deliberate port-clash didn't produce the expected `EADDRINUSE` error — it exited silently and the cause is unknown; we chose not to chase it. **Task 3.4 revealed a real gap in the two-programs model:** suggested the server could be added to main.jsx "so it renders the server too", and when asked what would happen if server code were imported into the client, answered "it would lack dependencies". Corrected to the strong form — **a browser cannot be a server**: Express asks the OS for a listening port, and a browser tab has no such power by design, so it can only ever be a client that asks. Both servers then run side by side on 5173 and 3000. **This was supplied, not retrieved — re-check it.**
 
 ## api
 - status: seed
