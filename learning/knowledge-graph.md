@@ -316,21 +316,21 @@
 - depends-on: nodejs
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 3.2: wrote the route handler body (`res.send`) and the `app.listen(3000, callback)` from a described shape, both correct first time. Shown the three pieces — `express()` builds the app, `app.get` registers a route, `app.listen` takes a port and waits. Noted that the route callback is the same shape as their `onChange` handlers: a function handed over to be called later.
+- evidence: Task 3.2: wrote the route handler body (`res.send`) and the `app.listen(3000, callback)` from a described shape, both correct first time. Shown the three pieces — `express()` builds the app, `app.get` registers a route, `app.listen` takes a port and waits. Noted that the route callback is the same shape as their `onChange` handlers: a function handed over to be called later. Task 3.3: met `res.json()` vs `res.send()` — json stringifies *and* sets the Content-Type header. Also met the restart problem: Node reads index.js once at startup, so every edit needs Ctrl+C and a re-run (fixed in 3.4).
 
 ## routes-endpoints
 - status: practicing
 - depends-on: express
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 3.2: **correctly predicted** that visiting an undefined path would give "cannot get /applications" before trying it. Confirmed 404 vs 200 in the DevTools Network tab unprompted once pointed at the Status column. Shown routing as a (method, path) → handler table, and the 2xx/4xx/5xx families with the 4xx-is-your-fault / 5xx-is-the-server's split.
+- evidence: Task 3.2: **correctly predicted** that visiting an undefined path would give "cannot get /applications" before trying it. Confirmed 404 vs 200 in the DevTools Network tab unprompted once pointed at the Status column. Shown routing as a (method, path) → handler table, and the 2xx/4xx/5xx families with the 4xx-is-your-fault / 5xx-is-the-server's split. Task 3.3: added a second route, `GET /api/applications`, unaided. Shown the `/api/` prefix convention — data for programs vs pages for humans — which becomes the proxy rule in section 4.
 
 ## http-request-response
 - status: practicing
 - depends-on: none
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 3.2: described the exchange in own words before any vocabulary was supplied — "browser makes a request to vite, vite provides and sends to browser". Given the terms client/request/server/response, and the asymmetry that a server never speaks first. Read real status codes out of the Network tab (200 and 404).
+- evidence: Task 3.2: described the exchange in own words before any vocabulary was supplied — "browser makes a request to vite, vite provides and sends to browser". Given the terms client/request/server/response, and the asymmetry that a server never speaks first. Read real status codes out of the Network tab (200 and 404). Task 3.3: met **response headers** — shown that `Content-Type: application/json` is what makes the browser pretty-print, and that the header is a label on the bytes rather than part of them. Ran `curl -i` themselves and saw the same response unformatted, making the display-vs-data distinction concrete.
 
 ## multiple-servers
 - status: practicing
@@ -354,11 +354,11 @@
 - evidence: —
 
 ## json
-- status: seed
+- status: practicing
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-02
+- last-reviewed: 2026-08-02
+- evidence: Task 3.3: asked whether a server could send a JavaScript array over a network, answered "i don't think so, it'd have to be a package of some sort" — right instinct, no vocabulary. Given serialization, JSON's three rules (double-quoted keys, no trailing commas, data only), and `JSON.stringify` / `JSON.parse`. **Wrote `res.json(JSON.stringify(applications))` — serialized twice**, and identified the symptom themselves from the browser ("long piece of text") before the cause was explained. Then saw the raw wire format via curl and confirmed the JSON rules in real output. Has not yet written `JSON.parse` or handled JSON on the receiving side — section 4.
 
 ## async-await
 - status: seed

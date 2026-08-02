@@ -19,7 +19,7 @@ Not in the repo, but the project depends on it: `~/.ssh/id_ed25519` (private, ne
 - server/ — known (2026-08-02) — the Express backend: the second program. Its own package.json and node_modules because it's deployed separately (Render) from the client (Vercel). → [[project-structure]] [[nodejs]]
 
 ## /server — the Express backend
-- index.js — known (2026-08-02) — the whole backend, for now: creates the Express app, defines one `GET /` route, and listens on port 3000. Started with `node index.js`; runs until Ctrl+C. → [[express]] [[routes-endpoints]] [[http-request-response]]
+- index.js — known (2026-08-02) — the whole backend, for now: the Express app, a hardcoded `applications` array, `GET /` and `GET /api/applications`, listening on port 3000. Started with `node index.js`; runs until Ctrl+C. The array is a **temporary duplicate** of the one in client/src/App.jsx — the client's copy goes away in section 4. → [[express]] [[routes-endpoints]] [[http-request-response]] [[json]]
 - package.json — known (2026-08-02) — the server's own recipe. Lists express, and carries `"type": "module"` so Node accepts `import`/`export` instead of `require()`. The `"main": "index.js"` field is why that filename is conventional. → [[npm-packages]] [[esm-vs-commonjs]]
 - package-lock.json — known (2026-08-02) — exact versions of all 65 installed packages. → [[npm-packages]] [[semantic-versioning]]
 - node_modules/ — generated (2026-08-02) — 65 downloaded packages (Express and its dependency tree). Machine-made, never edit, rebuildable with `npm install`. Ignored via the root .gitignore. → [[npm-packages]] [[gitignore]]
