@@ -256,11 +256,11 @@
 - evidence: Task 2.6: met the idea early via the status dropdown — shown the principle "make invalid states impossible to express" as better than validating after the fact. Also shown in 2.5 that `'offer'`/`'Offer'`/`'OFFER'` being three distinct values is the problem validation exists to remove. Not yet written any validation code — section 7.
 
 ## template-literals
-- status: introduced
+- status: practicing
 - depends-on: why-javascript
 - introduced: 2026-07-31
 - last-reviewed: 2026-08-01
-- evidence: Task 2.5: needed for the dynamic `className`. Struggled — first attempt had no backticks, wrong casing method, attribute in the wrong place, and dropped the visible content; the assembled line was ultimately handed over rather than derived. Did afterwards explain correctly why one copy of the status is lowercased and one isn't ("the one we're lowercasing may have capital letters"), sharpened to: one is read by CSS (case-sensitive), one by a person. **Task 4.4: failed a third time.** Wrote `"Server responded ${response.status}"` with double quotes, then `'...'` with single quotes, before getting backticks — needed to be told which physical key (left of `1`, above Tab). Separately wrote a backtick string inside JSX *children*, where it renders as literal characters and `{}` is the right tool. **The rule to over-learn: `${}` only means anything inside backticks; inside JSX text you use `{}` instead.**
+- evidence: Task 2.5: needed for the dynamic `className`. Struggled — first attempt had no backticks, wrong casing method, attribute in the wrong place, and dropped the visible content; the assembled line was ultimately handed over rather than derived. Did afterwards explain correctly why one copy of the status is lowercased and one isn't ("the one we're lowercasing may have capital letters"), sharpened to: one is read by CSS (case-sensitive), one by a person. **Task 4.4: failed a third time.** Wrote `"Server responded ${response.status}"` with double quotes, then `'...'` with single quotes, before getting backticks — needed to be told which physical key (left of `1`, above Tab). Separately wrote a backtick string inside JSX *children*, where it renders as literal characters and `{}` is the right tool. **The rule to over-learn: `${}` only means anything inside backticks; inside JSX text you use `{}` instead.** **Task 5.2 review after a two-day gap: PASSED (partial).** Asked cold when to reach for backticks, gave the interpolation answer correctly — "when you are writing a line that needs to execute javascript to obtain a value". Missed the second use, multi-line strings, which was sitting in their own db.js. Upgraded to practicing: first genuine retrieval after a real break.
 
 ## accessibility-contrast
 - status: introduced
@@ -400,7 +400,7 @@
 - depends-on: why-relational-database
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 5.1: wrote their first SQL — a CREATE TABLE statement, correct on the first attempt. Shown: SQL is a separate language living inside JavaScript strings, `--` is its comment marker, `IF NOT EXISTS` makes the statement safe to re-run on every server start, and `INTEGER PRIMARY KEY` makes SQLite generate ids automatically (replacing the hand-numbered ids from task 2.4). Has not yet written SELECT, INSERT, UPDATE or DELETE.
+- evidence: Task 5.1: wrote their first SQL — a CREATE TABLE statement, correct on the first attempt. Shown: SQL is a separate language living inside JavaScript strings, `--` is its comment marker, `IF NOT EXISTS` makes the statement safe to re-run on every server start, and `INTEGER PRIMARY KEY` makes SQLite generate ids automatically (replacing the hand-numbered ids from task 2.4). Task 5.2: wrote INSERT (parameterised), SELECT, WHERE and DELETE — see [[sql-queries]].
 
 ## tables-schema
 - status: seed
@@ -414,7 +414,7 @@
 - depends-on: sql
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 5.1: chose between `node:sqlite` (built in, but flagged experimental on their Node 22.23) and `better-sqlite3`; went with the latter on the boring-and-widely-used principle. **Correctly predicted it would add ~2 packages** (vs Express's 65) — a thin binding, not a framework. Shown: it's a native module, so a prebuilt binary was downloaded rather than compiled; and that its synchronous API is fine here because a local file read has no network wait worth freeing the thread for. Created `server/db.js`, ran it, and watched `job-tracker.db` appear.
+- evidence: Task 5.1: chose between `node:sqlite` (built in, but flagged experimental on their Node 22.23) and `better-sqlite3`; went with the latter on the boring-and-widely-used principle. **Correctly predicted it would add ~2 packages** (vs Express's 65) — a thin binding, not a framework. Shown: it's a native module, so a prebuilt binary was downloaded rather than compiled; and that its synchronous API is fine here because a local file read has no network wait worth freeing the thread for. Created `server/db.js`, ran it, and watched `job-tracker.db` appear. Task 5.2: installed the `sqlite3` CLI and read the data back **outside the app entirely** — the same independent-verification principle as curl in section 3. Met dot-commands (`.headers on`, `.mode box`, `.quit`) as the shell's own, distinct from SQL, and the missing-semicolon continuation prompt. Also met `db.prepare(...).run(...)` and saw SQLite assign ids 1–4 with no `id` supplied.
 
 ## tables-schema
 - status: practicing
@@ -424,11 +424,18 @@
 - evidence: Task 5.1: **wrote the whole CREATE TABLE correctly** — five columns, right types, NOT NULL where decided, `DEFAULT 'PENDING'`, nullable deadline, no trailing comma. Design question handled well: first said all five fields should be required, then reasoned to the right answer when given the rolling-deadline case ("i suppose that can be left empty then"). Shown: NOT NULL on a genuinely optional field forces people to invent data, and NULL meaning "unknown / not applicable" is itself information. Also shown: SQLite has no date type, so ISO text is what makes dates sort — the payoff for the format decision parked back in task 2.1.
 
 ## sql-queries
-- status: seed
+- status: practicing
 - depends-on: sql, tables-schema
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-04
+- last-reviewed: 2026-08-04
+- evidence: Task 5.2: met INSERT, SELECT, WHERE and DELETE. **Wrote a WHERE query unaided** — `SELECT * FROM applications WHERE status = 'PENDING';` — correct syntax and correct row count (2). Hit `no such table: application` first and self-corrected: table names are exact. Shown two SQL-vs-JavaScript traps: `=` is comparison (there is no `==`), and double quotes mean *identifiers* not strings, so text needs single quotes. Told that `DELETE FROM x` with no WHERE removes every row. Has not yet written UPDATE, ORDER BY or a JOIN.
+
+## sql-injection
+- status: practicing
+- depends-on: sql-queries
+- introduced: 2026-08-04
+- last-reviewed: 2026-08-04
+- evidence: Task 5.2: **correctly predicted the attack unaided** — shown `'); DROP TABLE applications; --` substituted into a concatenated query, said "it'll run drop table applications which gets rid of the entire database". Then wrote the parameterised VALUES clause with named placeholders. Shown the reason prepared statements work: the database parses the SQL structure *first* and slots values in as data afterwards, so a value can never change the query's meaning — escaping quotes is not the fix, not concatenating is. Rule stated: user data never enters a query by string concatenation.
 
 ## backend-db-connection
 - status: seed
