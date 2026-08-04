@@ -36,7 +36,8 @@
 - depends-on: database
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Explained consistent/structured data fits tables (one row per entry); NoSQL is for unpredictable data.
+- status-note: upgraded on the task 5.5 layer-separation check
+- evidence: Explained consistent/structured data fits tables (one row per entry); NoSQL is for unpredictable data. **Task 5.5 synthesis check, unaided:** named what each layer now holds — "client holds styling and markup, backend holds middleware and pathing from database to frontend, database holds values for each application" — and correctly listed database, markup and seed as what a new field would touch. Extended for them: the *server* needs no change at all, because `SELECT *` and `res.json()` are generic about columns.
 
 ## why-deployment-complex
 - status: introduced
@@ -561,4 +562,4 @@
 - depends-on: sqlite, postgresql
 - introduced: —
 - last-reviewed: —
-- evidence: —
+- evidence: Flagged in task 5.5 as the reason `CREATE TABLE IF NOT EXISTS` isn't enough long-term: it silently does nothing when the table exists, so adding a column leaves db.js and the on-disk schema disagreeing. Crude workaround for now (delete the .db and re-seed) is fine with fake data only. Comes due in section 8.

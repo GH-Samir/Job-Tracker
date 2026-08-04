@@ -65,7 +65,7 @@ Tasks:
       **Parked (polish):** the error text shown is the raw browser message ("Failed to fetch") rather than something written for a human.
 - [x] 4.5 Commit — section deliverable reached — done 2026-08-02 (committed and pushed unprompted, 67d0fc1 + 148d3e0)
 
-### 5. Remembering things (the database)  [ ] in progress
+### 5. Remembering things (the database)  [x] COMPLETE 2026-08-04
 **Deliverable:** applications you add persist — close everything, reopen, they're still there (stored in SQLite).
 **Concepts:** sql, tables-schema, sqlite, sql-queries, backend-db-connection, environment-variables
 
@@ -74,9 +74,10 @@ Tasks:
 - [x] 5.2 Create the table, seed the four applications, and read them back with SQL outside the app — done 2026-08-04; seed.js with a prepared statement, sqlite3 CLI installed, SELECT/WHERE run by hand
 - [x] 5.3 Make GET /api/applications read from the database instead of the hardcoded array — done 2026-08-04; prepared SELECT + .all(), hardcoded array deleted, verified by editing a row in the sqlite3 shell and reloading the browser with no server restart
 - [x] 5.4 Move the database path into an environment variable — done 2026-08-04; .env + .env.example, node --env-file in dev/seed scripts, fail-fast guard if DB_PATH is unset. Same mechanism will carry DATABASE_URL and the CORS origin in section 8.
-- [ ] 5.5 Commit — section deliverable reached
+- [x] 5.5 Commit — section deliverable reached — done 2026-08-04 (committed and pushed unprompted). Persistence verified: a value edited by hand in the sqlite3 shell survived a full restart of both servers.
+      **Caveat on the deliverable:** data *seeded or edited via SQL* persists. Adding applications through the UI is section 6 — the form still only logs to the console.
 
-### 6. The full core loop (CRUD)  [ ] not started
+### 6. The full core loop (CRUD)  [ ] up next
 **Deliverable:** the complete MVP feature set working locally — add, list, edit, and delete applications, all persisting.
 **Concepts:** post-put-delete, crud-pattern, wiring-ui-actions, error-handling
 
