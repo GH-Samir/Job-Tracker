@@ -73,7 +73,7 @@ Tasks:
 - [x] 5.1 Pick a SQLite library, install it, and design the applications table — done 2026-08-02; better-sqlite3 chosen over experimental node:sqlite, server/db.js written, job-tracker.db created and gitignored
 - [x] 5.2 Create the table, seed the four applications, and read them back with SQL outside the app — done 2026-08-04; seed.js with a prepared statement, sqlite3 CLI installed, SELECT/WHERE run by hand
 - [x] 5.3 Make GET /api/applications read from the database instead of the hardcoded array — done 2026-08-04; prepared SELECT + .all(), hardcoded array deleted, verified by editing a row in the sqlite3 shell and reloading the browser with no server restart
-- [ ] 5.4 Move the database path into an environment variable
+- [x] 5.4 Move the database path into an environment variable — done 2026-08-04; .env + .env.example, node --env-file in dev/seed scripts, fail-fast guard if DB_PATH is unset. Same mechanism will carry DATABASE_URL and the CORS origin in section 8.
 - [ ] 5.5 Commit — section deliverable reached
 
 ### 6. The full core loop (CRUD)  [ ] not started

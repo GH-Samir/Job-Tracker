@@ -113,7 +113,7 @@
 - depends-on: local-environment
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Predicted correctly and with the right mechanism that removing `id="root"` would break the page — "wouldn't load since it wouldn't know where to find the html with id root". Made the edit, saw the blank page, opened DevTools console when prompted and reported the real error ("Target container is not a DOM element. at main.jsx:6:1"). Shown: getElementById returns null when it finds nothing, and the error's file/line is where code *crashed*, not where the bug *is*. Task 2.1: asked to predict a breakage and answered "i dont know" — honest, and the right trigger to go look rather than guess. Still needed a nudge to open the console (second time). Then read an ENOENT stack trace and diagnosed it unaided from the path ("needs to look in client folder"), and fixed "application is not defined" by spotting the singular/plural mismatch themselves. Trajectory is good; the remaining gap is reaching for the console unprompted.
+- evidence: Predicted correctly and with the right mechanism that removing `id="root"` would break the page — "wouldn't load since it wouldn't know where to find the html with id root". Made the edit, saw the blank page, opened DevTools console when prompted and reported the real error ("Target container is not a DOM element. at main.jsx:6:1"). Shown: getElementById returns null when it finds nothing, and the error's file/line is where code *crashed*, not where the bug *is*. Task 2.1: asked to predict a breakage and answered "i dont know" — honest, and the right trigger to go look rather than guess. Still needed a nudge to open the console (second time). Then read an ENOENT stack trace and diagnosed it unaided from the path ("needs to look in client folder"), and fixed "application is not defined" by spotting the singular/plural mismatch themselves. Trajectory is good; the remaining gap is reaching for the console unprompted. **Task 5.4: same gap in a new place** — reported `npm run dev` "works" when it was in fact crashing with their own thrown error; had been looking at the browser, not the server terminal. Named: when something doesn't work, the program's own output is the *first* place to look.
 
 ## npm-packages
 - status: practicing
@@ -445,11 +445,18 @@
 - evidence: Task 5.3: wired `GET /api/applications` to `db.prepare('SELECT * FROM applications')` + `.all()`, and deleted the hardcoded array from index.js (34 lines of dead code, which needed pointing out — the three fill-ins were done but the array left behind). **Asked where `db.prepare` should live, answered "route handler as you want it to run on refresh"** — conflating preparing with executing. Corrected: `prepare` parses the SQL once (it never changes), `.all()` runs it per request and is what gives fresh data. *Prepare writes the question down; .all() asks it.* **Then predicted correctly** that a row edited in the sqlite3 shell would appear in the browser with no server restart, and confirmed it. Shown: importing db.js has the side effect of running CREATE TABLE, so the table is guaranteed to exist at startup.
 
 ## environment-variables
-- status: seed
+- status: practicing
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-04
+- last-reviewed: 2026-08-04
+- evidence: Task 5.4: identified unprompted what the two hardcoded values had in common — "it assumes the url and database location/name" — leading to the rule that anything differing between environments is *configuration*, not logic, and must come from outside the program. **Chose fail-fast over a silent default when asked**, which is the right call and matters most for secrets (a fallback would let production come up healthy while writing to the wrong database). Created .env (gitignored) and .env.example (committed), and wired `--env-file` into the dev and seed scripts. Shown: `process.env` values are always strings; UPPER_SNAKE_CASE is the convention because hyphens break dot-access (they first wrote `DB-PATH`); `.env.example` exists so a fresh clone knows which variables are needed; and `start` deliberately omits `--env-file` because a production host injects variables directly.
+
+## equality-operators
+- status: introduced
+- depends-on: why-javascript
+- introduced: 2026-08-04
+- last-reviewed: 2026-08-04
+- evidence: Task 5.4: wrote `if (DB_PATH = null)` — **assignment where comparison was meant**, the classic single-vs-triple-equals bug. Likely interference from SQL, learned two lessons earlier, where `=` *is* comparison. Also learned that an unset environment variable is `undefined`, never `null`, so `=== null` would never have fired; the idiomatic guard is `if (!X)`, which catches undefined, null and empty string. **Not yet retrieved — check that `=` vs `===` holds next time a condition is written.**
 
 ## post-put-delete
 - status: seed
@@ -477,7 +484,7 @@
 - depends-on: http-request-response
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 4.4: wrote try/catch/finally around the fetch, with `finally` clearing the loading flag either way. **Predicted wrongly that a 404 would throw** — corrected to the key fact that `fetch` only rejects when there was no conversation at all (unreachable, DNS, CORS); a 404 is a successful conversation with a disappointing answer, so `response.ok` must be checked by hand. First attempt wrote `if (response.ok) { setApplications(data) }` — a silent no-op on failure, i.e. the exact bug the task exists to remove; flipped to the `if (!response.ok) throw` guard. Also put the ok-check *after* `response.json()`, which would surface "Unexpected token '<'" instead of the real status. Second attempt called `setApplications(err.message)` in the catch — would have put a string where an array was expected and crashed `.map()`.
+- evidence: Task 4.4: wrote try/catch/finally around the fetch, with `finally` clearing the loading flag either way. **Predicted wrongly that a 404 would throw** — corrected to the key fact that `fetch` only rejects when there was no conversation at all (unreachable, DNS, CORS); a 404 is a successful conversation with a disappointing answer, so `response.ok` must be checked by hand. First attempt wrote `if (response.ok) { setApplications(data) }` — a silent no-op on failure, i.e. the exact bug the task exists to remove; flipped to the `if (!response.ok) throw` guard. Also put the ok-check *after* `response.json()`, which would surface "Unexpected token '<'" instead of the real status. Second attempt called `setApplications(err.message)` in the catch — would have put a string where an array was expected and crashed `.map()`. **Task 5.4: third mistyped Error constructor** (`new error = '...'`, then `new error (...)`) after `Eror` in task 4.4 — flagged as a personal pattern rather than three unrelated slips. `Error` is capitalised and called like a function. Also met the good-error-message standard: say what's wrong *and* how to fix it, which their DB_PATH message does.
 
 ## conditional-rendering
 - status: practicing
