@@ -106,7 +106,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App`. Task 1.4: correctly predicted that deleting assets/CSS before rewriting App.jsx would error because the imports would point at missing files, which set the work order. Traced leftover styling to `import './index.css'` in main.jsx after a nudge (first guess also included index.html, which contains no styles). Task 2.2: wrote `import ApplicationCard from "./ApplicationCard"` unaided (extension omitted — works via Vite resolution; noted that main.jsx uses the explicit `.jsx` form and consistency is the point).
+- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App`. Task 1.4: correctly predicted that deleting assets/CSS before rewriting App.jsx would error because the imports would point at missing files, which set the work order. Traced leftover styling to `import './index.css'` in main.jsx after a nudge (first guess also included index.html, which contains no styles). Task 2.2: wrote `import ApplicationCard from "./ApplicationCard"` unaided (extension omitted — works via Vite resolution; noted that main.jsx uses the explicit `.jsx` form and consistency is the point). **Task 5.3: met the real difference** — Node's ESM resolver *requires* the file extension (`'./db.js'`), where Vite guesses it. Same language, different resolver; omitting it in server code gives ERR_MODULE_NOT_FOUND. Also shown that an import can have side effects: importing db.js runs its CREATE TABLE.
 
 ## reading-errors
 - status: practicing
@@ -428,7 +428,7 @@
 - depends-on: sql, tables-schema
 - introduced: 2026-08-04
 - last-reviewed: 2026-08-04
-- evidence: Task 5.2: met INSERT, SELECT, WHERE and DELETE. **Wrote a WHERE query unaided** — `SELECT * FROM applications WHERE status = 'PENDING';` — correct syntax and correct row count (2). Hit `no such table: application` first and self-corrected: table names are exact. Shown two SQL-vs-JavaScript traps: `=` is comparison (there is no `==`), and double quotes mean *identifiers* not strings, so text needs single quotes. Told that `DELETE FROM x` with no WHERE removes every row. Has not yet written UPDATE, ORDER BY or a JOIN.
+- evidence: Task 5.2: met INSERT, SELECT, WHERE and DELETE. **Wrote a WHERE query unaided** — `SELECT * FROM applications WHERE status = 'PENDING';` — correct syntax and correct row count (2). Hit `no such table: application` first and self-corrected: table names are exact. Shown two SQL-vs-JavaScript traps: `=` is comparison (there is no `==`), and double quotes mean *identifiers* not strings, so text needs single quotes. Told that `DELETE FROM x` with no WHERE removes every row. Task 5.3: met the three better-sqlite3 methods — `.run()` (changes data), `.get()` (one row or undefined), `.all()` (array of rows) — and ran an UPDATE with a WHERE from the shell. Has not yet written ORDER BY or a JOIN.
 
 ## sql-injection
 - status: practicing
@@ -438,11 +438,11 @@
 - evidence: Task 5.2: **correctly predicted the attack unaided** — shown `'); DROP TABLE applications; --` substituted into a concatenated query, said "it'll run drop table applications which gets rid of the entire database". Then wrote the parameterised VALUES clause with named placeholders. Shown the reason prepared statements work: the database parses the SQL structure *first* and slots values in as data afterwards, so a value can never change the query's meaning — escaping quotes is not the fix, not concatenating is. Rule stated: user data never enters a query by string concatenation.
 
 ## backend-db-connection
-- status: seed
+- status: practicing
 - depends-on: express, sqlite
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-04
+- last-reviewed: 2026-08-04
+- evidence: Task 5.3: wired `GET /api/applications` to `db.prepare('SELECT * FROM applications')` + `.all()`, and deleted the hardcoded array from index.js (34 lines of dead code, which needed pointing out — the three fill-ins were done but the array left behind). **Asked where `db.prepare` should live, answered "route handler as you want it to run on refresh"** — conflating preparing with executing. Corrected: `prepare` parses the SQL once (it never changes), `.all()` runs it per request and is what gives fresh data. *Prepare writes the question down; .all() asks it.* **Then predicted correctly** that a row edited in the sqlite3 shell would appear in the browser with no server restart, and confirmed it. Shown: importing db.js has the side effect of running CREATE TABLE, so the table is guaranteed to exist at startup.
 
 ## environment-variables
 - status: seed
