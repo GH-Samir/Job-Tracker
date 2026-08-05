@@ -45,4 +45,17 @@ app.delete('/api/applications/:id', (req, res) => {
 
 })
 
+const upd = db.prepare('UPDATE applications SET status =? where id = ?')
+
+app.patch('/api/applications/:id', (req, res) => {
+  const info = upd.run(req.body.status, Number(req.params.id))
+
+  if (info.changes === 0) {
+    res.status(404).json({ error: 'No application with that id'})
+  } else {
+    const updated = selectOne.get(Number(req.params.id))
+    res.json(updated)
+  }
+})
+
 app.listen(3000, () => {console.log("Listening on http://localhost:3000")})
