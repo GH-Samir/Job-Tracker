@@ -1,16 +1,30 @@
 import { useState } from 'react'
 
-function ApplicationForm() {
+function ApplicationForm(props) {
+  
   const [company, setCompany] = useState('')
   const [role, setRole] = useState('')
   const [status, setStatus] = useState('PENDING')
   const [dateApplied, setDateApplied] = useState('')
   const [deadline, setDeadline] = useState('')
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     const newApplication = { company: company, role: role, status: status, dateApplied: dateApplied, deadline: deadline}
-    console.log(newApplication)
+
+    const response = await fetch('http://localhost:3000/api/applications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newApplication)
+    })
+
+    props.onApplicationAdded()
+
+    setCompany('')
+    setRole('')
+    setDateApplied('')
+    setStatus('PENDING')
+    setDeadline('')
   }
 
   return (

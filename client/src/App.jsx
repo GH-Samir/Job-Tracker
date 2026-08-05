@@ -8,21 +8,23 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
-  useEffect(() => {
-    async function loadApplications() {
-      try {
-        const response = await fetch('http://localhost:3000/api/applications')
-        if (!response.ok) {
-          throw new Error(`Server responded ${response.status}`)
-        } 
-        const data = await response.json()
-        setApplications(data)
-      } catch (err) {
-          setError(err.message)
-      } finally {
-          setLoading(false)
+  // Moved out of the effect so it can also be handed to the form.
+  async function loadApplications() {
+    try {
+      const response = await fetch('http://localhost:3000/api/applications')
+      if (!response.ok) {
+        throw new Error(`Server responded ${response.status}`)
       }
+      const data = await response.json()
+      setApplications(data)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
     }
+  }
+
+  useEffect(() => {
     loadApplications()
   }, [])
 
@@ -31,7 +33,8 @@ function App() {
     <div className="app">
       <h1>Job Tracker</h1>
       <p className="tagline">A simple app to track job applications and their status.</p>
-      <ApplicationForm />
+
+      <ApplicationForm onApplicationAdded={loadApplications} />
 
       {loading && <p>Loading...</p>}
       {error && <p className="error">Error {error}</p>}
