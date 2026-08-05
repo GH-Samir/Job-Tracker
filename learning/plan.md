@@ -77,7 +77,7 @@ Tasks:
 - [x] 5.5 Commit — section deliverable reached — done 2026-08-04 (committed and pushed unprompted). Persistence verified: a value edited by hand in the sqlite3 shell survived a full restart of both servers.
       **Caveat on the deliverable:** data *seeded or edited via SQL* persists. Adding applications through the UI is section 6 — the form still only logs to the console.
 
-### 6. The full core loop (CRUD)  [ ] in progress
+### 6. The full core loop (CRUD)  [x] COMPLETE 2026-08-05
 **Deliverable:** the complete MVP feature set working locally — add, list, edit, and delete applications, all persisting.
 **Concepts:** post-put-delete, crud-pattern, wiring-ui-actions, error-handling
 
@@ -91,9 +91,9 @@ Tasks:
 - [x] 6.4 Change an application's status from the card — done 2026-08-05; PATCH route with UPDATE, status dropdown on each card controlled by props. **CRUD complete.**
       **Polish parked:** the status dropdown reuses the badge styling and may not sit well as a `<select>`; the Delete button still has no CSS.
       **Workflow problem, three occurrences (4.2, 6.3, 6.4):** `node --watch` repeatedly fails to restart on save, costing several minutes each time debugging already-correct code. Cause unknown. Worth a dedicated task.
-- [ ] 6.5 Commit — section deliverable reached
+- [x] 6.5 Commit — section deliverable reached — done 2026-08-05 (committed and pushed unprompted). **MVP feature set complete locally.**
 
-### 7. Tests & safety rails  [ ] not started
+### 7. Tests & safety rails  [ ] up next
 **Deliverable:** a small set of automated tests proving core features work, plus input validation so bad data can't break things.
 **Concepts:** automated-testing, test-runner, validation, edge-cases
 
