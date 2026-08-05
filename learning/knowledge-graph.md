@@ -394,7 +394,7 @@
 - depends-on: express
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 4.2: wrote their first `app.use((req, res, next) => {...})` from a described shape. Shown: middleware runs for every request regardless of method or path; the chain either responds or calls `next()`; **forgetting `next()` hangs the request with no error at all**; and registration order matters, so middleware must sit above the routes it affects. Has not yet written middleware that inspects the request or short-circuits the chain.
+- evidence: Task 4.2: wrote their first `app.use((req, res, next) => {...})` from a described shape. Shown: middleware runs for every request regardless of method or path; the chain either responds or calls `next()`; **forgetting `next()` hangs the request with no error at all**; and registration order matters, so middleware must sit above the routes it affects. Has not yet written middleware that inspects the request or short-circuits the chain. **Task 6.1: added `express.json()`.** Asked why the body needs middleware when the URL doesn't, answered "because we won't just be reading, we will be writing" — the read/write framing is wrong. Corrected: a URL is always text in one known format, but a body could be JSON, form-encoded, XML or a 2GB video, so Express won't guess; `express.json()` checks the Content-Type header and populates `req.body`. Second reason given: bodies arrive as a stream and must be collected before parsing.
 
 ## sql
 - status: practicing
@@ -436,7 +436,7 @@
 - depends-on: sql-queries
 - introduced: 2026-08-04
 - last-reviewed: 2026-08-04
-- evidence: Task 5.2: **correctly predicted the attack unaided** — shown `'); DROP TABLE applications; --` substituted into a concatenated query, said "it'll run drop table applications which gets rid of the entire database". Then wrote the parameterised VALUES clause with named placeholders. Shown the reason prepared statements work: the database parses the SQL structure *first* and slots values in as data afterwards, so a value can never change the query's meaning — escaping quotes is not the fix, not concatenating is. Rule stated: user data never enters a query by string concatenation.
+- evidence: Task 5.2: **correctly predicted the attack unaided** — shown `'); DROP TABLE applications; --` substituted into a concatenated query, said "it'll run drop table applications which gets rid of the entire database". Then wrote the parameterised VALUES clause with named placeholders. Shown the reason prepared statements work: the database parses the SQL structure *first* and slots values in as data afterwards, so a value can never change the query's meaning — escaping quotes is not the fix, not concatenating is. Rule stated: user data never enters a query by string concatenation. **Task 6.1 review after one day: PASSED, both halves unaided** — named the attack ("someone could write drop table in their sql query which would delete everything") and the defence with its mechanism ("use prepare mechanism first to define structure of expected query"). Also met the `?` positional placeholder alongside `@name`.
 
 ## backend-db-connection
 - status: practicing
@@ -460,11 +460,18 @@
 - evidence: Task 5.4: wrote `if (DB_PATH = null)` — **assignment where comparison was meant**, the classic single-vs-triple-equals bug. Likely interference from SQL, learned two lessons earlier, where `=` *is* comparison. Also learned that an unset environment variable is `undefined`, never `null`, so `=== null` would never have fired; the idiomatic guard is `if (!X)`, which catches undefined, null and empty string. **Not yet retrieved — check that `=` vs `===` holds next time a condition is written.**
 
 ## post-put-delete
-- status: seed
+- status: practicing
 - depends-on: http-request-response, routes-endpoints
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-05
+- last-reviewed: 2026-08-05
+- evidence: Task 6.1: wrote their first POST route. Shown that HTTP methods are *verbs declaring intent* — GET reads and is safe to repeat/cache/retry, POST creates and is not — and that nothing enforces this, but browsers, caches and back buttons all assume it. **Correctly predicted the 201 + created-row response** before running curl. Met `res.status(201).json(...)` chaining, and why the created row (with its generated id) must come back: the client can't edit or delete it otherwise. Only POST so far — PUT and DELETE in 6.3/6.4.
+
+## crud-pattern
+- status: introduced
+- depends-on: post-put-delete, sql-queries
+- introduced: 2026-08-05
+- last-reviewed: 2026-08-05
+- evidence: Task 6.1: the C of CRUD — create wired end to end from HTTP through a prepared INSERT to a row on disk, verified with curl and an id assigned by the database. R (read) was already done in section 5. U and D still ahead.
 
 ## crud-pattern
 - status: seed
@@ -485,7 +492,7 @@
 - depends-on: http-request-response
 - introduced: 2026-08-02
 - last-reviewed: 2026-08-02
-- evidence: Task 4.4: wrote try/catch/finally around the fetch, with `finally` clearing the loading flag either way. **Predicted wrongly that a 404 would throw** — corrected to the key fact that `fetch` only rejects when there was no conversation at all (unreachable, DNS, CORS); a 404 is a successful conversation with a disappointing answer, so `response.ok` must be checked by hand. First attempt wrote `if (response.ok) { setApplications(data) }` — a silent no-op on failure, i.e. the exact bug the task exists to remove; flipped to the `if (!response.ok) throw` guard. Also put the ok-check *after* `response.json()`, which would surface "Unexpected token '<'" instead of the real status. Second attempt called `setApplications(err.message)` in the catch — would have put a string where an array was expected and crashed `.map()`. **Task 5.4: third mistyped Error constructor** (`new error = '...'`, then `new error (...)`) after `Eror` in task 4.4 — flagged as a personal pattern rather than three unrelated slips. `Error` is capitalised and called like a function. Also met the good-error-message standard: say what's wrong *and* how to fix it, which their DB_PATH message does.
+- evidence: Task 4.4: wrote try/catch/finally around the fetch, with `finally` clearing the loading flag either way. **Predicted wrongly that a 404 would throw** — corrected to the key fact that `fetch` only rejects when there was no conversation at all (unreachable, DNS, CORS); a 404 is a successful conversation with a disappointing answer, so `response.ok` must be checked by hand. First attempt wrote `if (response.ok) { setApplications(data) }` — a silent no-op on failure, i.e. the exact bug the task exists to remove; flipped to the `if (!response.ok) throw` guard. Also put the ok-check *after* `response.json()`, which would surface "Unexpected token '<'" instead of the real status. Second attempt called `setApplications(err.message)` in the catch — would have put a string where an array was expected and crashed `.map()`. **Task 5.4: third mistyped Error constructor** (`new error = '...'`, then `new error (...)`) after `Eror` in task 4.4 — flagged as a personal pattern rather than three unrelated slips. `Error` is capitalised and called like a function. Also met the good-error-message standard: say what's wrong *and* how to fix it, which their DB_PATH message does. **Task 6.1: saw the unhandled-error gap for real** — POSTed a body missing `company` and got a 500 with library internals in it. Predicted "insert run will fail" correctly but not what the client would see. Two problems named: (1) 500 blames the server for the *client's* bad input, where 400 Bad Request is correct — the 4xx/5xx split from task 3.2; (2) the response leaks parameter names and library details. Both parked for section 7.
 
 ## conditional-rendering
 - status: practicing

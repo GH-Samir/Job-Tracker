@@ -77,9 +77,17 @@ Tasks:
 - [x] 5.5 Commit — section deliverable reached — done 2026-08-04 (committed and pushed unprompted). Persistence verified: a value edited by hand in the sqlite3 shell survived a full restart of both servers.
       **Caveat on the deliverable:** data *seeded or edited via SQL* persists. Adding applications through the UI is section 6 — the form still only logs to the console.
 
-### 6. The full core loop (CRUD)  [ ] up next
+### 6. The full core loop (CRUD)  [ ] in progress
 **Deliverable:** the complete MVP feature set working locally — add, list, edit, and delete applications, all persisting.
 **Concepts:** post-put-delete, crud-pattern, wiring-ui-actions, error-handling
+
+Tasks:
+- [x] 6.1 POST /api/applications on the server — done 2026-08-05; express.json(), prepared INSERT, 201 with the created row, verified with curl (id 5 assigned by the database)
+      **Known gap, due in section 7:** a POST missing a required field returns 500 with library internals in the body. Should be 400 Bad Request with a clean message.
+- [ ] 6.2 Wire the form to POST (this is where the parked CORS preflight debt comes due)
+- [ ] 6.3 DELETE /api/applications/:id, and a delete button on each card
+- [ ] 6.4 Change an application's status from the card — the update half of CRUD
+- [ ] 6.5 Commit — section deliverable reached
 
 ### 7. Tests & safety rails  [ ] not started
 **Deliverable:** a small set of automated tests proving core features work, plus input validation so bad data can't break things.
