@@ -31,6 +31,16 @@ async function handleDelete(id) {
   loadApplications()
 }
 
+  async function handleStatusChange(id, status) {
+    await fetch (`http://localhost:3000/api/applications/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    })
+    
+    loadApplications()
+  }
+
   useEffect(() => {
     loadApplications()
   }, [])
@@ -49,7 +59,7 @@ async function handleDelete(id) {
 
       <div className="card-list">
         {applications.map((application) => (
-         <ApplicationCard key={application.id} application={application} onDelete={handleDelete} />
+          <ApplicationCard key={application.id} application={application} onDelete={handleDelete} onStatusChange={handleStatusChange} />
         ))}
       </div>
     </div>
