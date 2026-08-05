@@ -86,7 +86,8 @@ Tasks:
       **Known gap, due in section 7:** a POST missing a required field returns 500 with library internals in the body. Should be 400 Bad Request with a clean message.
 - [x] 6.2 Wire the form to POST — done 2026-08-05; preflight hit and fixed with the `cors` package (origin-restricted), loadApplications lifted out of the effect and passed down as a callback, form clears after submit. New cards now appear without a refresh.
       **Known gap, due in section 7:** the form never checks `response.ok`, so a failed POST still clears the form and refetches — silently losing what the user typed.
-- [ ] 6.3 DELETE /api/applications/:id, and a delete button on each card
+- [x] 6.3 DELETE /api/applications/:id, and a delete button on each card — done 2026-08-05; route params, 204 vs 404 on `changes`, callback-with-argument from card to App. Verified with curl and in the browser.
+      **Polish parked:** the Delete button has className="delete" but no CSS rule, so it's unstyled.
 - [ ] 6.4 Change an application's status from the card — the update half of CRUD
 - [ ] 6.5 Commit — section deliverable reached
 

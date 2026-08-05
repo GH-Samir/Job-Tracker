@@ -34,4 +34,15 @@ app.post('/api/applications', (req, res) => {
   res.status(201).json(created)
 })
 
+
+const del = db.prepare('DELETE FROM applications WHERE id = ?')
+
+app.delete('/api/applications/:id', (req, res) => {
+  const info = del.run(req.params.id)
+  if (info.changes === 0) {
+    res.status(404).json({error: 'No application with that id'})}
+  else {res.status(204).end()}
+
+})
+
 app.listen(3000, () => {console.log("Listening on http://localhost:3000")})
