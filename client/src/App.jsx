@@ -24,6 +24,13 @@ function App() {
     }
   }
 
+async function handleDelete(id) {
+  await fetch (`http://localhost:3000/api/applications/${id}`, {
+    method: 'DELETE'
+  })
+  loadApplications()
+}
+
   useEffect(() => {
     loadApplications()
   }, [])
@@ -41,7 +48,9 @@ function App() {
       {!loading && !error && applications.length === 0 && <p>Application list is empty!</p>}
 
       <div className="card-list">
-        {applications.map((application) => <ApplicationCard key={application.id} application={application}/>)}
+        {applications.map((application) => (
+         <ApplicationCard key={application.id} application={application} onDelete={handleDelete} />
+        ))}
       </div>
     </div>
   )
