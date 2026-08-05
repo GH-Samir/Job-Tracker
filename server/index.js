@@ -1,12 +1,11 @@
 import express from 'express'
 import db from './db.js'
+import cors from 'cors'
 
 const app = express()
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
-  next()
-})
+app.use(cors({ origin: 'http://localhost:5173' }))
+
 
 app.use(express.json())
 
