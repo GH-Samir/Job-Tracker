@@ -104,7 +104,7 @@ Tasks:
 - [x] 7.3 Handle a failed submit in the client — done 2026-08-06. **6.2 debt paid.** response.ok checked, server's error list rendered above the form, fields preserved on failure and cleared only on success.
       **Remaining gap:** no try/catch around the form's fetch, so an unreachable server still fails silently. Validation failure and network failure are different cases.
 - [x] 7.4 Set up the test runner and write the first passing test — done 2026-08-06; validation extracted to its own module, two tests via Node's built-in runner, `npm test` wired up, and the suite proven by watching it catch a deliberately introduced regression.
-- [ ] 7.5 Test the write routes, including the validation from 7.1
+- [x] 7.5 Test the write routes, including the validation from 7.1 — done 2026-08-07; index.js split into app.js + a 3-line entry point, supertest installed as a devDependency, tests run against a throwaway DB_PATH database with beforeEach isolation. 5 tests, all passing.
 - [ ] 7.6 Commit — section deliverable reached
 
 ### 8. Going live (deployment)  [ ] not started
