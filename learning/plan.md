@@ -93,9 +93,18 @@ Tasks:
       **Workflow problem, three occurrences (4.2, 6.3, 6.4):** `node --watch` repeatedly fails to restart on save, costing several minutes each time debugging already-correct code. Cause unknown. Worth a dedicated task.
 - [x] 6.5 Commit — section deliverable reached — done 2026-08-05 (committed and pushed unprompted). **MVP feature set complete locally.**
 
-### 7. Tests & safety rails  [ ] up next
+### 7. Tests & safety rails  [ ] in progress
 **Deliverable:** a small set of automated tests proving core features work, plus input validation so bad data can't break things.
 **Concepts:** automated-testing, test-runner, validation, edge-cases
+
+Tasks:
+- [x] 7.1 Validate incoming applications on the server — done 2026-08-05. **6.1 debt paid.** validateApplication collects all errors and returns 400; PATCH guarded separately (routes don't chain). Verified with curl: empty body → 4 errors, whitespace-only company → rejected, invalid status → rejected on both POST and PATCH.
+      **`node --watch` failed a FOURTH time** and this time produced a false test result — a 3h12m-old process made working validation look broken. This needs fixing before it wastes more time.
+- [ ] 7.2 Fix the tooling — diagnose why `node --watch` doesn't restart, and set up format-on-save. Added 2026-08-05 after the watcher failed four times and produced a false test result in 7.1.
+- [ ] 7.3 Handle a failed submit in the client — check response.ok, keep the user's input (pays off the 6.2 debt)
+- [ ] 7.4 Set up the test runner and write the first passing test
+- [ ] 7.5 Test the write routes, including the validation from 7.1
+- [ ] 7.6 Commit — section deliverable reached
 
 ### 8. Going live (deployment)  [ ] not started
 **Deliverable:** the app at a real public URL with a Postgres database — usable from a phone.
