@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 function ApplicationForm(props) {
-  
   const [company, setCompany] = useState('')
   const [role, setRole] = useState('')
   const [status, setStatus] = useState('PENDING')
@@ -10,12 +9,18 @@ function ApplicationForm(props) {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    const newApplication = { company: company, role: role, status: status, dateApplied: dateApplied, deadline: deadline}
+    const newApplication = {
+      company: company,
+      role: role,
+      status: status,
+      dateApplied: dateApplied,
+      deadline: deadline,
+    }
 
     const response = await fetch('http://localhost:3000/api/applications', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newApplication)
+      body: JSON.stringify(newApplication),
     })
 
     props.onApplicationAdded()
@@ -28,50 +33,60 @@ function ApplicationForm(props) {
   }
 
   return (
-    <form className="form"   onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <h2>Add an Application </h2>
 
       <label htmlFor="company">Company</label>
       <input
-        id="company" name="company" type="text"
+        id="company"
+        name="company"
+        type="text"
         value={company}
         onChange={(e) => setCompany(e.target.value)}
       />
 
       <label htmlFor="role">Role</label>
-      <input 
-        id="role" name="role" type="text"
+      <input
+        id="role"
+        name="role"
+        type="text"
         value={role}
-        onChange={(e)=> setRole(e.target.value)}
+        onChange={(e) => setRole(e.target.value)}
       />
 
       <label htmlFor="status">Status</label>
-      <select id="status" name="status"
+      <select
+        id="status"
+        name="status"
         value={status}
-        onChange={(e)=> setStatus(e.target.value)}
+        onChange={(e) => setStatus(e.target.value)}
       >
         <option value="PENDING">Pending</option>
         <option value="OFFER">Offer</option>
         <option value="REJECTED">Rejected</option>
       </select>
-      
 
       <label htmlFor="dateApplied">Date applied</label>
-      <input id="dateApplied" name="dateApplied" type="date"
+      <input
+        id="dateApplied"
+        name="dateApplied"
+        type="date"
         value={dateApplied}
-        onChange={(e)=> setDateApplied(e.target.value)}
+        onChange={(e) => setDateApplied(e.target.value)}
       />
 
       <label htmlFor="deadline">Deadline</label>
-      <input id="deadline" name="deadline" type="date"
+      <input
+        id="deadline"
+        name="deadline"
+        type="date"
         value={deadline}
-        onChange={(e)=> setDeadline(e.target.value)}
+        onChange={(e) => setDeadline(e.target.value)}
       />
 
       <button type="submit">Add Application</button>
     </form>
   )
-
 }
 
 export default ApplicationForm

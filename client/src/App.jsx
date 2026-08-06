@@ -1,9 +1,8 @@
-import ApplicationCard from "./ApplicationCard"
-import ApplicationForm from "./ApplicationForm"
-import { useState, useEffect } from "react"
+import ApplicationCard from './ApplicationCard'
+import ApplicationForm from './ApplicationForm'
+import { useState, useEffect } from 'react'
 
 function App() {
-
   const [applications, setApplications] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -24,20 +23,20 @@ function App() {
     }
   }
 
-async function handleDelete(id) {
-  await fetch (`http://localhost:3000/api/applications/${id}`, {
-    method: 'DELETE'
-  })
-  loadApplications()
-}
+  async function handleDelete(id) {
+    await fetch(`http://localhost:3000/api/applications/${id}`, {
+      method: 'DELETE',
+    })
+    loadApplications()
+  }
 
   async function handleStatusChange(id, status) {
-    await fetch (`http://localhost:3000/api/applications/${id}`, {
+    await fetch(`http://localhost:3000/api/applications/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
+      body: JSON.stringify({ status }),
     })
-    
+
     loadApplications()
   }
 
@@ -45,21 +44,29 @@ async function handleDelete(id) {
     loadApplications()
   }, [])
 
-  
   return (
     <div className="app">
       <h1>Job Tracker</h1>
-      <p className="tagline">A simple app to track job applications and their status.</p>
+      <p className="tagline">
+        A simple app to track job applications and their status.
+      </p>
 
       <ApplicationForm onApplicationAdded={loadApplications} />
 
       {loading && <p>Loading...</p>}
       {error && <p className="error">Error {error}</p>}
-      {!loading && !error && applications.length === 0 && <p>Application list is empty!</p>}
+      {!loading && !error && applications.length === 0 && (
+        <p>Application list is empty!</p>
+      )}
 
       <div className="card-list">
         {applications.map((application) => (
-          <ApplicationCard key={application.id} application={application} onDelete={handleDelete} onStatusChange={handleStatusChange} />
+          <ApplicationCard
+            key={application.id}
+            application={application}
+            onDelete={handleDelete}
+            onStatusChange={handleStatusChange}
+          />
         ))}
       </div>
     </div>

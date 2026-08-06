@@ -6,11 +6,10 @@ const app = express()
 
 app.use(cors({ origin: 'http://localhost:5173' }))
 
-
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send("Hello man yeah")
+  res.send('Hello man yeah')
 })
 
 const selectAll = db.prepare('SELECT * FROM applications')
@@ -37,22 +36,24 @@ function isNonEmptyString(value) {
 
 function validateApplication(body) {
   const errors = []
-  if (!isNonEmptyString(body.company)){
-    errors.push('Invalid Company Name') }
-
-  if (!isNonEmptyString(body.role)){
-    errors.push('Invalid Role Name') }
-
-  if (!isNonEmptyString(body.dateApplied)){
-    errors.push('Invalid Date Applied') }
-
-  if (!(VALID_STATUSES.includes(body.status))) {
-    errors.push('Invalid Status') }
-  
-  
-  return errors
-  
+  if (!isNonEmptyString(body.company)) {
+    errors.push('Invalid Company Name')
   }
+
+  if (!isNonEmptyString(body.role)) {
+    errors.push('Invalid Role Name')
+  }
+
+  if (!isNonEmptyString(body.dateApplied)) {
+    errors.push('Invalid Date Applied')
+  }
+
+  if (!VALID_STATUSES.includes(body.status)) {
+    errors.push('Invalid Status')
+  }
+
+  return errors
+}
 
 app.post('/api/applications', (req, res) => {
   const errors = validateApplication(req.body)
@@ -65,15 +66,15 @@ app.post('/api/applications', (req, res) => {
   res.status(201).json(created)
 })
 
-
 const del = db.prepare('DELETE FROM applications WHERE id = ?')
 
 app.delete('/api/applications/:id', (req, res) => {
   const info = del.run(req.params.id)
   if (info.changes === 0) {
-    res.status(404).json({error: 'No application with that id'})}
-  else {res.status(204).end()}
-
+    res.status(404).json({ error: 'No application with that id' })
+  } else {
+    res.status(204).end()
+  }
 })
 
 const upd = db.prepare('UPDATE applications SET status =? where id = ?')
@@ -86,11 +87,13 @@ app.patch('/api/applications/:id', (req, res) => {
   const info = upd.run(req.body.status, Number(req.params.id))
 
   if (info.changes === 0) {
-    res.status(404).json({ error: 'No application with that id'})
+    res.status(404).json({ error: 'No application with that id' })
   } else {
     const updated = selectOne.get(Number(req.params.id))
     res.json(updated)
   }
 })
 
-app.listen(3000, () => {console.log("Listening on http://localhost:3000")})
+app.listen(3000, () => {
+  console.log('Listening on http://localhost:3000')
+})

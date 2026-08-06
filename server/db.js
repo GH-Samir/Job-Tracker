@@ -1,7 +1,6 @@
 import Database from 'better-sqlite3'
 
-
-const DB_PATH = (process.env.DB_PATH)
+const DB_PATH = process.env.DB_PATH
 
 if (!DB_PATH) {
   throw new Error('Database path cannot be null. Set database path in .env')

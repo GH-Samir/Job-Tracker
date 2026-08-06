@@ -53,18 +53,16 @@ body {
   border-radius: 6px;
 }
 
-
 /* ---------- submit button ---------- */
 
 .form button {
-    border: 0px;
-    border-radius: 6px;
-    background: #0684F9;
-    color:#ffffff;
-    padding: 0.4rem 0.5rem;
-    cursor: pointer;
-    font: inherit;
-    
+  border: 0px;
+  border-radius: 6px;
+  background: #0684f9;
+  color: #ffffff;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  font: inherit;
 }
 
 /* ---------- the list ---------- */
@@ -95,10 +93,10 @@ body {
 }
 
 .label {
-    font-size: 0.75rem;
-    color: #A39E9E;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
+  font-size: 0.75rem;
+  color: #a39e9e;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
 }
 
 /* ---------- status badge ---------- */
@@ -115,18 +113,18 @@ body {
 }
 
 .status-OFFER {
-    color: #1a7f37;
-    background: #e6f4ea;
+  color: #1a7f37;
+  background: #e6f4ea;
 }
 
 .status-PENDING {
-    color: #8a5300;
-    background: #fdf1e0;
+  color: #8a5300;
+  background: #fdf1e0;
 }
 
 .status-REJECTED {
-    color: #b42318;
-    background: #FFB8B8;
+  color: #b42318;
+  background: #ffb8b8;
 }
 
 .error {
