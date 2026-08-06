@@ -1,6 +1,7 @@
 import express from 'express'
 import db from './db.js'
 import cors from 'cors'
+import { VALID_STATUSES, validateApplication } from './validation.js'
 
 const app = express()
 
@@ -26,34 +27,6 @@ const insert = db.prepare(`
 // Fetches a single row by id. `?` is a positional placeholder —
 // the value is passed as an argument instead of by name.
 const selectOne = db.prepare('SELECT * FROM applications WHERE id = ?')
-
-const VALID_STATUSES = ['PENDING', 'OFFER', 'REJECTED']
-
-// True only for a string with at least one non-whitespace character.
-function isNonEmptyString(value) {
-  return typeof value === 'string' && value.trim() !== ''
-}
-
-function validateApplication(body) {
-  const errors = []
-  if (!isNonEmptyString(body.company)) {
-    errors.push('Invalid Company Name')
-  }
-
-  if (!isNonEmptyString(body.role)) {
-    errors.push('Invalid Role Name')
-  }
-
-  if (!isNonEmptyString(body.dateApplied)) {
-    errors.push('Invalid Date Applied')
-  }
-
-  if (!VALID_STATUSES.includes(body.status)) {
-    errors.push('Invalid Status')
-  }
-
-  return errors
-}
 
 app.post('/api/applications', (req, res) => {
   const errors = validateApplication(req.body)
