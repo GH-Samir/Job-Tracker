@@ -14,6 +14,8 @@ Project root: `/home/samir/job-tracker` — everything below is relative to it.
 - .git/ — known (2026-07-31) — the repository itself: every commit ever made lives here. Hidden (leading dot). Never edit by hand; you change it only through git commands. Since task 2.3 it also stores the `origin` remote pointing at github.com/GH-Samir/Job-Tracker. → [[git-commit]] [[git-remotes]]
 
 Not in the repo, but the project depends on it: `~/.ssh/id_ed25519` (private, never leaves this machine) and `~/.ssh/id_ed25519.pub` (public half, on GitHub). → [[public-key-auth]]
+- .prettierrc — known (2026-08-05) — the project's formatting rules (single quotes, no semicolons), committed so every machine formats identically. → [[code-formatting]]
+- .vscode/ — known (2026-08-05) — editor settings shared with the repo: format-on-save, with Prettier as the formatter. Committed deliberately so the behaviour travels with the project. → [[code-formatting]]
 - .gitignore — known (2026-08-02) — repo-root ignore list, currently just `node_modules`. A .gitignore covers its own directory and everything below, so this one entry protects client/, server/, and anything added later. client/.gitignore still exists for Vite-specific entries (dist, logs, editor folders). → [[gitignore]]
 - client/ — known (2026-07-31) — the React frontend: one of the two separate programs this project runs. Its own packages, own start command, own future deployment. → [[project-structure]]
 - server/ — known (2026-08-02) — the Express backend: the second program. Its own package.json and node_modules because it's deployed separately (Render) from the client (Vercel). → [[project-structure]] [[nodejs]]

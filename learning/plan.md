@@ -100,7 +100,7 @@ Tasks:
 Tasks:
 - [x] 7.1 Validate incoming applications on the server — done 2026-08-05. **6.1 debt paid.** validateApplication collects all errors and returns 400; PATCH guarded separately (routes don't chain). Verified with curl: empty body → 4 errors, whitespace-only company → rejected, invalid status → rejected on both POST and PATCH.
       **`node --watch` failed a FOURTH time** and this time produced a false test result — a 3h12m-old process made working validation look broken. This needs fixing before it wastes more time.
-- [ ] 7.2 Fix the tooling — diagnose why `node --watch` doesn't restart, and set up format-on-save. Added 2026-08-05 after the watcher failed four times and produced a false test result in 7.1.
+- [x] 7.2 Fix the tooling — done 2026-08-05. Diagnosed the watcher with a `touch` test (inotify fine; the editor's atomic save was replacing the watched file) and fixed it with `--watch-path=.`. Prettier + format-on-save installed, rules committed in .prettierrc, whole codebase reformatted in its own commit.
 - [ ] 7.3 Handle a failed submit in the client — check response.ok, keep the user's input (pays off the 6.2 debt)
 - [ ] 7.4 Set up the test runner and write the first passing test
 - [ ] 7.5 Test the write routes, including the validation from 7.1
