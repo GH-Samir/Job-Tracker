@@ -93,7 +93,7 @@ Tasks:
       **Workflow problem, three occurrences (4.2, 6.3, 6.4):** `node --watch` repeatedly fails to restart on save, costing several minutes each time debugging already-correct code. Cause unknown. Worth a dedicated task.
 - [x] 6.5 Commit — section deliverable reached — done 2026-08-05 (committed and pushed unprompted). **MVP feature set complete locally.**
 
-### 7. Tests & safety rails  [ ] in progress
+### 7. Tests & safety rails  [x] COMPLETE 2026-08-07
 **Deliverable:** a small set of automated tests proving core features work, plus input validation so bad data can't break things.
 **Concepts:** automated-testing, test-runner, validation, edge-cases
 
@@ -105,8 +105,15 @@ Tasks:
       **Remaining gap:** no try/catch around the form's fetch, so an unreachable server still fails silently. Validation failure and network failure are different cases.
 - [x] 7.4 Set up the test runner and write the first passing test — done 2026-08-06; validation extracted to its own module, two tests via Node's built-in runner, `npm test` wired up, and the suite proven by watching it catch a deliberately introduced regression.
 - [x] 7.5 Test the write routes, including the validation from 7.1 — done 2026-08-07; index.js split into app.js + a 3-line entry point, supertest installed as a devDependency, tests run against a throwaway DB_PATH database with beforeEach isolation. 5 tests, all passing.
-- [ ] 7.6 Commit — section deliverable reached
+- [x] 7.6 Commit — section deliverable reached — done 2026-08-07 (committed and pushed unprompted). 5 tests passing.
 
-### 8. Going live (deployment)  [ ] not started
+**Honest coverage gaps (recorded 2026-08-07, not scheduled):**
+- No client tests at all — sections 2, 4 and 6's React work is unverified. Needs a different tool (Vitest + Testing Library).
+- DELETE and PATCH routes untested, including their 404 paths and the PATCH status guard. Cheapest gap to close — same pattern as the existing route tests.
+- CORS is untestable this way: supertest isn't a browser, so it has no same-origin policy.
+- Rendering, CSS and the status badge classes are invisible to these tests.
+- The form's fetch still has no try/catch, so an unreachable server fails silently (carried from 7.3).
+
+### 8. Going live (deployment)  [ ] up next
 **Deliverable:** the app at a real public URL with a Postgres database — usable from a phone.
 **Concepts:** deployment, hosting, postgresql, prod-env-variables, connecting-services, db-migration
