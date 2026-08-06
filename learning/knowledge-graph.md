@@ -121,7 +121,7 @@
 - depends-on: none
 - introduced: 2026-07-31
 - last-reviewed: 2026-07-31
-- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App`. Task 1.4: correctly predicted that deleting assets/CSS before rewriting App.jsx would error because the imports would point at missing files, which set the work order. Traced leftover styling to `import './index.css'` in main.jsx after a nudge (first guess also included index.html, which contains no styles). Task 2.2: wrote `import ApplicationCard from "./ApplicationCard"` unaided (extension omitted — works via Vite resolution; noted that main.jsx uses the explicit `.jsx` form and consistency is the point). **Task 5.3: met the real difference** — Node's ESM resolver *requires* the file extension (`'./db.js'`), where Vite guesses it. Same language, different resolver; omitting it in server code gives ERR_MODULE_NOT_FOUND. Also shown that an import can have side effects: importing db.js runs its CREATE TABLE.
+- evidence: Walked through main.jsx's four imports; shown the package-name (`'react'`) vs relative-path (`'./App.jsx'`) distinction, and `export default App`. Task 1.4: correctly predicted that deleting assets/CSS before rewriting App.jsx would error because the imports would point at missing files, which set the work order. Traced leftover styling to `import './index.css'` in main.jsx after a nudge (first guess also included index.html, which contains no styles). Task 2.2: wrote `import ApplicationCard from "./ApplicationCard"` unaided (extension omitted — works via Vite resolution; noted that main.jsx uses the explicit `.jsx` form and consistency is the point). **Task 5.3: met the real difference** — Node's ESM resolver *requires* the file extension (`'./db.js'`), where Vite guesses it. Same language, different resolver; omitting it in server code gives ERR_MODULE_NOT_FOUND. Also shown that an import can have side effects: importing db.js runs its CREATE TABLE. **Task 7.4: wrote their first named exports**, which resolved a mystery standing since task 1.3 — why `import { useState } from 'react'` has braces and `import db from './db.js'` doesn't. `export default` = this file is *about* one thing, one per file, importer picks the name; `export const`/`export function` = this file *provides* several things, importer must use the exact names in braces. Omitting `export` makes something private to the file.
 
 ## reading-errors
 - status: practicing
@@ -467,11 +467,11 @@
 - evidence: Task 5.4: identified unprompted what the two hardcoded values had in common — "it assumes the url and database location/name" — leading to the rule that anything differing between environments is *configuration*, not logic, and must come from outside the program. **Chose fail-fast over a silent default when asked**, which is the right call and matters most for secrets (a fallback would let production come up healthy while writing to the wrong database). Created .env (gitignored) and .env.example (committed), and wired `--env-file` into the dev and seed scripts. Shown: `process.env` values are always strings; UPPER_SNAKE_CASE is the convention because hyphens break dot-access (they first wrote `DB-PATH`); `.env.example` exists so a fresh clone knows which variables are needed; and `start` deliberately omits `--env-file` because a production host injects variables directly.
 
 ## equality-operators
-- status: practicing
+- status: understood
 - depends-on: why-javascript
 - introduced: 2026-08-04
 - last-reviewed: 2026-08-04
-- evidence: Task 5.4: wrote `if (DB_PATH = null)` — **assignment where comparison was meant**, the classic single-vs-triple-equals bug. Likely interference from SQL, learned two lessons earlier, where `=` *is* comparison. Also learned that an unset environment variable is `undefined`, never `null`, so `=== null` would never have fired; the idiomatic guard is `if (!X)`, which catches undefined, null and empty string. **Task 7.1: a second, subtler equality trap** — wrote `if (validateApplication(req.body) !== [])`, which is **always true**: arrays and objects compare by *identity*, not contents, so `[] === []` is false. Corrected to `errors.length > 0`. Also wrote `errors += 'message'` instead of `errors.push(...)`, which converts the array to a string via concatenation. **Task 7.3 review after one day: PASSED, both parts, unaided.** "`=` is to set a value, `===` is for a comparison" and — precisely — "`===` in arrays compares the address of the array, not what's in it, so that will always be false." Identity versus contents, in their own words. Upgraded to practicing.
+- evidence: Task 5.4: wrote `if (DB_PATH = null)` — **assignment where comparison was meant**, the classic single-vs-triple-equals bug. Likely interference from SQL, learned two lessons earlier, where `=` *is* comparison. Also learned that an unset environment variable is `undefined`, never `null`, so `=== null` would never have fired; the idiomatic guard is `if (!X)`, which catches undefined, null and empty string. **Task 7.1: a second, subtler equality trap** — wrote `if (validateApplication(req.body) !== [])`, which is **always true**: arrays and objects compare by *identity*, not contents, so `[] === []` is false. Corrected to `errors.length > 0`. Also wrote `errors += 'message'` instead of `errors.push(...)`, which converts the array to a string via concatenation. **Task 7.3 review after one day: PASSED, both parts, unaided.** "`=` is to set a value, `===` is for a comparison" and — precisely — "`===` in arrays compares the address of the array, not what's in it, so that will always be false." Identity versus contents, in their own words. **Task 7.4: THIRD retrieval, applied to a situation they hadn't seen — upgraded to understood.** Asked whether `assert.strictEqual(errors, [])` would pass, answered "no because strict equal uses ===, on arrays this will always be false unless the arrays share the same address" — including the caveat. That's transfer, not recall: same principle, new context, correct conclusion, plus the reason `deepStrictEqual` has to exist.
 
 ## post-put-delete
 - status: practicing
@@ -518,18 +518,32 @@
 - evidence: Task 4.4: wrote `{loading && <p>Loading...</p>}` correctly first time from one example, and then the three-condition version for the empty state. **Wrote a raw `if (...) { ... }` block inside JSX** for the third case — corrected with the load-bearing idea: **JSX children must be expressions (things with a value), not statements**, which is *why* `&&` is used instead of `if`. Shown the falsy-zero trap (`{count && ...}` renders a literal 0). Has not yet used a ternary or an early return for the same job. **Task 7.3: met the empty-array trap** — `[]` is an object and therefore **truthy**, so `{errors && <ul>}` would render an empty list forever; the check must be `errors.length > 0`. Same family as the falsy-`0` trap from 4.4: test the thing you actually mean. Also asked for the whole JSX block to be explained before typing it, and was walked through the JSX↔JavaScript alternation — every `{` is a switch back into JavaScript.
 
 ## automated-testing
-- status: seed
+- status: practicing
 - depends-on: none
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-06
+- last-reviewed: 2026-08-06
+- evidence: Task 7.4: **named the strongest reason unprompted** when asked what breaks about manual checking — "need to check if adding new feature breaks another feature that was added in the past", i.e. regressions. Wrote the second test unaided (arrange → act → assert, behaviour-named). **Correctly predicted which test would fail** when the company check was commented out, then read the failure diff: `+ actual` / `- expected`, same convention as `git diff`. Principle demonstrated on their own code — they named regressions as the motivation, introduced one, and watched the test catch it in two seconds and point at the line. Also met: **a test you've never seen fail is not evidence**, since it may be asserting nothing.
 
 ## test-runner
-- status: seed
+- status: practicing
 - depends-on: automated-testing
-- introduced: —
-- last-reviewed: —
-- evidence: —
+- introduced: 2026-08-06
+- last-reviewed: 2026-08-06
+- evidence: Task 7.4: used Node's built-in runner — no install, same story as `--watch` and `--env-file`. Met `node:test` and `node:assert` (the `node:` prefix marking built-ins, a third category alongside packages and relative paths), the `*.test.js` discovery convention, `test(name, fn)`, and assertions that pass by *not throwing*. Replaced the `npm init` placeholder `test` script from task 3.1 with `node --test`. **Distinguished `strictEqual` from `deepStrictEqual` by reasoning from first principles** — see [[equality-operators]].
+
+## pure-functions
+- status: introduced
+- depends-on: none
+- introduced: 2026-08-06
+- last-reviewed: 2026-08-06
+- evidence: Task 7.4: shown why `validateApplication` was the right first thing to test — data in, answers out, no database, no network, no side effects, so same input gives same result every time. Concretely: the test needs no `--env-file`, no running server, and no cleanup, and no test can affect another. Told, not yet retrieved.
+
+## separation-of-concerns
+- status: introduced
+- depends-on: imports-exports
+- introduced: 2026-08-06
+- last-reviewed: 2026-08-06
+- evidence: Task 7.4: extracted VALID_STATUSES, isNonEmptyString and validateApplication out of index.js into validation.js, because importing index.js to test a function would have started a web server. Principle named: **code that's hard to test is usually doing too much** — index.js was mixing wiring, logic and startup. Framed as better structure that testing *revealed*, not a concession to testing. Did the move cleanly and left `isNonEmptyString` unexported, so nothing outside can come to depend on it.
 
 ## validation
 - status: seed

@@ -103,7 +103,7 @@ Tasks:
 - [x] 7.2 Fix the tooling — done 2026-08-05. Diagnosed the watcher with a `touch` test (inotify fine; the editor's atomic save was replacing the watched file) and fixed it with `--watch-path=.`. Prettier + format-on-save installed, rules committed in .prettierrc, whole codebase reformatted in its own commit.
 - [x] 7.3 Handle a failed submit in the client — done 2026-08-06. **6.2 debt paid.** response.ok checked, server's error list rendered above the form, fields preserved on failure and cleared only on success.
       **Remaining gap:** no try/catch around the form's fetch, so an unreachable server still fails silently. Validation failure and network failure are different cases.
-- [ ] 7.4 Set up the test runner and write the first passing test
+- [x] 7.4 Set up the test runner and write the first passing test — done 2026-08-06; validation extracted to its own module, two tests via Node's built-in runner, `npm test` wired up, and the suite proven by watching it catch a deliberately introduced regression.
 - [ ] 7.5 Test the write routes, including the validation from 7.1
 - [ ] 7.6 Commit — section deliverable reached
 
