@@ -6,6 +6,7 @@ function ApplicationForm(props) {
   const [status, setStatus] = useState('PENDING')
   const [dateApplied, setDateApplied] = useState('')
   const [deadline, setDeadline] = useState('')
+  const [errors, setErrors] = useState([])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -23,6 +24,14 @@ function ApplicationForm(props) {
       body: JSON.stringify(newApplication),
     })
 
+    if (!response.ok) {
+      const body = await response.json()
+      setErrors(body.errors)
+      return
+    }
+
+    setErrors([])
+
     props.onApplicationAdded()
 
     setCompany('')
@@ -35,6 +44,14 @@ function ApplicationForm(props) {
   return (
     <form className="form" onSubmit={handleSubmit}>
       <h2>Add an Application </h2>
+
+      {errors.length > 0 && (
+        <ul className="error">
+          {errors.map((message) => (
+            <li key={message}>{message}</li>
+          ))}
+        </ul>
+      )}
 
       <label htmlFor="company">Company</label>
       <input
