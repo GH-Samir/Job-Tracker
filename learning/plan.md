@@ -121,7 +121,7 @@ Tasks:
 Tasks:
 - [x] 8.1 Install and run PostgreSQL locally, create the database, connect with psql — done 2026-08-07; Postgres 18.3, service enabled, `samir` role created via the `postgres` bootstrap account, empty `jobtracker` database. Nothing in the repo changed — this was all system-level.
 - [x] 8.2 Port the schema to Postgres — done 2026-08-07; `applications` table created in the jobtracker database with an identity id and snake_case columns. **Note: the code still speaks SQLite — 8.3 fixes that.**
-- [ ] 8.3 Port the server from better-sqlite3 to `pg` — every query becomes async — and get the 5 tests green again
+- [x] 8.3 Port the server from better-sqlite3 to `pg` — done 2026-08-07. Pool + DATABASE_URL, all four routes async with `$N` placeholders and `RETURNING`, seed script ported, tests moved to a `jobtracker_test` database via a gitignored `.env.test`. **5 tests green, client unchanged.** Local auth switched to password-over-TCP (pg_hba.conf) so it matches production's shape.
 - [ ] 8.4 Remove the last hardcoded URLs: the client's API base and the server's CORS origin (pays off the 4.2 debt)
 - [ ] 8.5 Deploy the backend to Render with a managed Postgres
 - [ ] 8.6 Deploy the frontend to Vercel and connect the two
