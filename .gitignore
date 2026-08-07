@@ -2,3 +2,4 @@ node_modules
 job-tracker.db
 .env
 test.db
+.env.test
