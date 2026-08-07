@@ -2,12 +2,12 @@ import { test, beforeEach } from 'node:test'
 import assert from 'node:assert'
 import request from 'supertest'
 import app from './app.js'
-import db from './db.js'
+import pool from './db.js'
 
 // Runs before EVERY test in this file, so each one starts from a known,
 // empty table and cannot be affected by the tests around it.
-beforeEach(() => {
-  db.exec('DELETE FROM applications')
+beforeEach(async () => {
+  await pool.query('DELETE FROM applications')
 })
 
 const validApplication = {

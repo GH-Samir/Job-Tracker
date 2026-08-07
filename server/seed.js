@@ -1,4 +1,4 @@
-import db from './db.js'
+import pool from './db.js'
 
 const applications = [
   {
@@ -31,15 +31,24 @@ const applications = [
   },
 ]
 
-db.exec('DELETE FROM applications')
-
-const insert = db.prepare(`
-  INSERT INTO applications (company, role, dateApplied, status, deadline)
-  VALUES(@company,@role,@dateApplied,@status,@deadline)
-`)
+await pool.query('DELETE FROM applications')
 
 for (const application of applications) {
-  insert.run(application)
+  await pool.query(
+    `INSERT INTO applications (company, role, date_applied, status, deadline)
+     VALUES ($1, $2, $3, $4, $5)`,
+    [
+      application.company,
+      application.role,
+      application.dateApplied,
+      application.status,
+      application.deadline,
+    ],
+  )
 }
 
 console.log(`Seeded ${applications.length} applications`)
+
+// A pool holds its connections open, so the process would never exit
+// without this. A server wants that; a script doesn't.
+await pool.end()

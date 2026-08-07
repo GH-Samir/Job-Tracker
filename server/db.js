@@ -1,23 +1,27 @@
-import Database from 'better-sqlite3'
+// `pg` is a CommonJS package, so we take the default export and reach
+// into it rather than using named imports.
+import pg from 'pg'
 
-const DB_PATH = process.env.DB_PATH
+const DATABASE_URL = process.env.DATABASE_URL
 
-if (!DB_PATH) {
-  throw new Error('Database path cannot be null. Set database path in .env')
+if (!DATABASE_URL) {
+  throw new Error('Database URL is empty in environment')
 }
 
-// Opens the file, creating it if it doesn't exist yet.
-const db = new Database(DB_PATH)
+// A pool of reusable connections, rather than one connection per request.
+const pool = new pg.Pool({ connectionString: DATABASE_URL })
 
-db.exec(`
+// Top-level await: this finishes before anything imports us.
+await pool.query(`
   CREATE TABLE IF NOT EXISTS applications (
-    id          INTEGER PRIMARY KEY,
-    company     TEXT NOT NULL,
-    role        TEXT NOT NULL,
-    dateApplied TEXT NOT NULL,
-    status      TEXT NOT NULL DEFAULT 'PENDING',
-    deadline    TEXT
-  )
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  company     TEXT NOT NULL,
+  role        TEXT NOT NULL,
+  date_applied TEXT NOT NULL,
+  status      TEXT NOT NULL DEFAULT 'PENDING',
+  deadline    TEXT
+)
+;
 `)
 
-export default db
+export default pool
