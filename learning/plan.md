@@ -4,7 +4,7 @@
 - Language: **JavaScript** — one language for frontend and backend; biggest beginner community; directly employable. (TypeScript introduced later as an upgrade.)
 - Frontend: **React (via Vite)** — the in-demand UI library; Vite is the build tool that turns React into what the browser understands. Learner has prior HTML/CSS reps.
 - Backend: **Node.js + Express** — Node runs JavaScript on the server; Express adds conventions and helpers for handling requests.
-- Database: **SQLite locally → PostgreSQL in production** — relational fits the consistent, structured shape of job-application records; both speak SQL so learning transfers.
+- Database: **PostgreSQL everywhere** (revised 2026-08-07; was "SQLite locally → PostgreSQL in production"). Relational fits the structured shape of job-application records. SQLite was the right start — a file, nothing to install, so SQL could be learned without database administration. Changed at section 8 for **dev/prod parity**: the two engines differ in SQL dialect (`INTEGER PRIMARY KEY` vs `GENERATED ALWAYS AS IDENTITY`), in type strictness (SQLite silently converts `'19'` to `19`; Postgres won't — a live bug in the delete route), and in driver style (better-sqlite3 is synchronous, `pg` is async). Keeping both would mean the code meets the production database for the first time *on deploy day*, debuggable only through remote logs.
 - Hosting: **Render (backend + database) + Vercel (frontend)** — gentle on-ramps and free tiers; skip AWS/GCP for now.
 
 ## Sections
@@ -114,6 +114,15 @@ Tasks:
 - Rendering, CSS and the status badge classes are invisible to these tests.
 - The form's fetch still has no try/catch, so an unreachable server fails silently (carried from 7.3).
 
-### 8. Going live (deployment)  [ ] up next
+### 8. Going live (deployment)  [ ] in progress
 **Deliverable:** the app at a real public URL with a Postgres database — usable from a phone.
 **Concepts:** deployment, hosting, postgresql, prod-env-variables, connecting-services, db-migration
+
+Tasks:
+- [x] 8.1 Install and run PostgreSQL locally, create the database, connect with psql — done 2026-08-07; Postgres 18.3, service enabled, `samir` role created via the `postgres` bootstrap account, empty `jobtracker` database. Nothing in the repo changed — this was all system-level.
+- [ ] 8.2 Port the schema to Postgres — the SQL dialect differences, done by hand
+- [ ] 8.3 Port the server from better-sqlite3 to `pg` — every query becomes async — and get the 5 tests green again
+- [ ] 8.4 Remove the last hardcoded URLs: the client's API base and the server's CORS origin (pays off the 4.2 debt)
+- [ ] 8.5 Deploy the backend to Render with a managed Postgres
+- [ ] 8.6 Deploy the frontend to Vercel and connect the two
+- [ ] 8.7 Commit — section deliverable reached, project complete
