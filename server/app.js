@@ -5,7 +5,11 @@ import { VALID_STATUSES, validateApplication } from './validation.js'
 
 const app = express()
 
-app.use(cors({ origin: 'http://localhost:5173' }))
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN
+if (!CLIENT_ORIGIN) {
+  throw new Error('Missing client origin in process')
+}
+app.use(cors({ origin: CLIENT_ORIGIN }))
 
 app.use(express.json())
 
@@ -17,7 +21,6 @@ app.get('/', (req, res) => {
   res.send('Hello man yeah')
 })
 
-// WORKED EXAMPLE — read this one carefully, the other three follow it.
 app.get('/api/applications', async (req, res) => {
   const result = await pool.query(
     `SELECT ${COLUMNS} FROM applications ORDER BY id`,
