@@ -2,6 +2,8 @@ import ApplicationCard from './ApplicationCard'
 import ApplicationForm from './ApplicationForm'
 import { useState, useEffect } from 'react'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function App() {
   const [applications, setApplications] = useState([])
   const [loading, setLoading] = useState(true)
@@ -10,7 +12,7 @@ function App() {
   // Moved out of the effect so it can also be handed to the form.
   async function loadApplications() {
     try {
-      const response = await fetch('http://localhost:3000/api/applications')
+      const response = await fetch(`${API_URL}/api/applications`)
       if (!response.ok) {
         throw new Error(`Server responded ${response.status}`)
       }
@@ -24,14 +26,14 @@ function App() {
   }
 
   async function handleDelete(id) {
-    await fetch(`http://localhost:3000/api/applications/${id}`, {
+    await fetch(`${API_URL}/api/applications/${id}`, {
       method: 'DELETE',
     })
     loadApplications()
   }
 
   async function handleStatusChange(id, status) {
-    await fetch(`http://localhost:3000/api/applications/${id}`, {
+    await fetch(`${API_URL}/api/applications/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),

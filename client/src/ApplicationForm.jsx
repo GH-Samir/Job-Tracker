@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function ApplicationForm(props) {
   const [company, setCompany] = useState('')
   const [role, setRole] = useState('')
@@ -18,7 +20,7 @@ function ApplicationForm(props) {
       deadline: deadline,
     }
 
-    const response = await fetch('http://localhost:3000/api/applications', {
+    const response = await fetch(`${API_URL}/api/applications`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newApplication),
