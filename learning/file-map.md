@@ -43,7 +43,9 @@ Not in the repo, but the project depends on it: `~/.ssh/id_ed25519` (private, ne
 - package-lock.json — known (2026-07-31) — the exact versions of all 105 installed packages, so the recipe reproduces precisely instead of approximately. npm maintains it; you commit it, you don't edit it. → [[npm-packages]]
 - node_modules/ — generated (2026-07-31) — 98 MB of downloaded packages. Machine-made, never edit, rebuildable any time with `npm install`. Kept out of git entirely. → [[npm-packages]] [[gitignore]]
 - .gitignore — known (2026-07-31) — the list of paths git must never track. Kept 4,350 files down to 17. → [[gitignore]]
-- eslint.config.js — parked — settings for ESLint, the linter that reads your code and flags mistakes. Untouched so far; comes due when it first complains at you. → [[linting]]
+- eslint.config.js — known (2026-08-07) — ESLint's settings: which files to lint, which preset rule sets to extend (core JS, React Hooks, React Refresh), and which globals exist so browser APIs aren't flagged as undefined. Toured in task 8.4. **No custom `rules` block yet** — adding `no-template-curly-in-string` is parked. → [[linting]]
+- .env — config (2026-08-07) — VITE_API_URL, the backend's base address. Gitignored for consistency, though **not secret**: Vite bakes it into the public bundle. → [[prod-env-variables]]
+- .env.example — known (2026-08-07) — committed, and unlike the server's it carries the real value, because there's no secret to withhold. → [[prod-env-variables]]
 - index.html — known (2026-07-31) — the one and only web page in the app. Its `<body>` holds an empty `<div id="root">` for React to fill, and a script tag pointing at main.jsx. Everything visible is put there by JavaScript — except the `<title>`, which is set before React runs. → [[react-component]]
 - vite.config.js — known (2026-07-31) — Vite's settings; the only meaningful line is `plugins: [react()]`. Gets edited in section 4 to talk to the backend. → [[vite]]
 - README.md — known (2026-07-31) — Vite's generic blurb; to be replaced with a description of this project.

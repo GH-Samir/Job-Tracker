@@ -122,7 +122,8 @@ Tasks:
 - [x] 8.1 Install and run PostgreSQL locally, create the database, connect with psql — done 2026-08-07; Postgres 18.3, service enabled, `samir` role created via the `postgres` bootstrap account, empty `jobtracker` database. Nothing in the repo changed — this was all system-level.
 - [x] 8.2 Port the schema to Postgres — done 2026-08-07; `applications` table created in the jobtracker database with an identity id and snake_case columns. **Note: the code still speaks SQLite — 8.3 fixes that.**
 - [x] 8.3 Port the server from better-sqlite3 to `pg` — done 2026-08-07. Pool + DATABASE_URL, all four routes async with `$N` placeholders and `RETURNING`, seed script ported, tests moved to a `jobtracker_test` database via a gitignored `.env.test`. **5 tests green, client unchanged.** Local auth switched to password-over-TCP (pg_hba.conf) so it matches production's shape.
-- [ ] 8.4 Remove the last hardcoded URLs: the client's API base and the server's CORS origin (pays off the 4.2 debt)
+- [x] 8.4 Remove the last hardcoded URLs — done 2026-08-07. **4.2 debt paid.** Server reads CLIENT_ORIGIN with a fail-fast guard; client reads VITE_API_URL in both files. No `localhost` left in either codebase.
+      **Parked (offered, declined):** add `'no-template-curly-in-string': 'error'` to client/eslint.config.js. One line; catches the `'${x}'`-in-single-quotes bug that has now occurred six times. Worth doing when the appetite is there.
 - [ ] 8.5 Deploy the backend to Render with a managed Postgres
 - [ ] 8.6 Deploy the frontend to Vercel and connect the two
 - [ ] 8.7 Commit — section deliverable reached, project complete
